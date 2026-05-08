@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${playfair.variable}`}>
       <body className="antialiased" suppressHydrationWarning>{children}</body>
     </html>
   );

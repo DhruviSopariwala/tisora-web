@@ -111,11 +111,14 @@ export default function SocialSection() {
             Join the Community
           </p>
           <h3
-            className="font-playfair font-bold text-[#FAF7F2] mb-4"
+            className="font-playfair font-bold text-[#FAF7F2] mb-2"
             style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)" }}
           >
             Join the hydration movement.
           </h3>
+          <p className="text-[#F6D34E] text-xs tracking-[0.3em] uppercase font-semibold mb-4">
+            Your Daily Reset Drink
+          </p>
           <p className="text-[#A9C3A2] text-sm mb-8 max-w-sm mx-auto leading-relaxed">
             Be part of something refreshing. Follow TISORA and be the first to know when HYTEA drops.
           </p>

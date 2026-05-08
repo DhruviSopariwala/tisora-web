@@ -53,27 +53,31 @@ export default function AboutSection() {
             </span>
 
             <h2
-              className="font-playfair font-bold text-[#0E5A43] leading-[1.15] mb-6"
+              className="font-playfair font-bold text-[#0E5A43] leading-[1.15] mb-3"
               style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
             >
               Born from a<br />
               <span className="italic text-[#1D6B4F]">better thirst.</span>
             </h2>
 
+            <p className="text-[#B68B5E] text-xs tracking-[0.35em] uppercase font-semibold mb-6">
+              Your Daily Reset Drink
+            </p>
+
             <div className="space-y-4 text-[#1D6B4F]/75 leading-relaxed mb-8">
               <p style={{ fontSize: "1.05rem" }}>
-                TISORA was born from a simple question: why should staying hydrated
-                mean compromising on taste, quality, or what goes into your body?
+                TISORA is a daily lifestyle iced tea designed for health-conscious
+                youth, office goers, and active individuals.
               </p>
               <p>
-                We set out to create something different — a hydration drink that
-                actually tastes like it was made with care. HYTEA blends real tea
-                extracts with natural electrolytes and Khandsari sugar, delivering
-                genuine refreshment without the artificial shortcuts.
+                Positioned in the functional hydration category, TISORA delivers a
+                refreshing boost with natural green and black tea extracts, balanced
+                with Khandsari sugar and stevia, plus essential vitamins and
+                electrolytes.
               </p>
               <p>
-                Every can is a commitment to transparency, taste, and the belief
-                that what you drink should work as hard as you do.
+                Unlike traditional sugary drinks, TISORA is a low-calorie, naturally
+                sweetened beverage that supports daily focus and hydration.
               </p>
             </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Logo from "./Logo";
 
 const navLinks = [
   { label: "About",       href: "#about" },
@@ -39,11 +40,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2">
             <div className="mb-5">
-              <h2 className="font-playfair text-4xl font-bold text-[#FAF7F2] tracking-tight leading-none">
-                TISORA
-              </h2>
-              <p className="text-[#A9C3A2] text-[10px] tracking-[0.45em] uppercase mt-1">
+              <Logo size="lg" color="#FAF7F2" />
+              <p className="text-[#A9C3A2] text-[10px] tracking-[0.45em] uppercase mt-2">
                 HYTEA
+              </p>
+              <p className="text-[#F6D34E] text-[10px] tracking-[0.25em] uppercase font-semibold mt-1">
+                Your Daily Reset Drink
               </p>
             </div>
             <p className="text-[#A9C3A2]/65 text-sm leading-relaxed max-w-xs mb-6">

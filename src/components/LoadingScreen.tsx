@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Logo from "./Logo";
 
 export default function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
@@ -73,13 +74,13 @@ export default function LoadingScreen() {
 
           {/* Logo */}
           <motion.div
-            className="relative z-10 text-center"
+            className="relative z-10 text-center flex flex-col items-center"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.div
-              className="mb-2"
+              className="mb-4"
               animate={{ opacity: [0.7, 1, 0.7] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -88,17 +89,16 @@ export default function LoadingScreen() {
               </span>
             </motion.div>
 
-            <motion.h1
-              className="font-playfair text-7xl md:text-9xl font-bold text-[#FAF7F2] tracking-tight"
-              initial={{ opacity: 0, scale: 0.8 }}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
             >
-              TISORA
-            </motion.h1>
+              <Logo size="xl" color="#FAF7F2" />
+            </motion.div>
 
             <motion.div
-              className="mt-3 flex items-center justify-center gap-3"
+              className="mt-4 flex items-center justify-center gap-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
@@ -109,6 +109,15 @@ export default function LoadingScreen() {
               </span>
               <div className="h-px w-12 bg-[#A9C3A2] opacity-60" />
             </motion.div>
+
+            <motion.p
+              className="text-[#F6D34E] text-[11px] tracking-[0.3em] uppercase font-semibold mt-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1 }}
+            >
+              Your Daily Reset Drink
+            </motion.p>
 
             {/* Progress bar */}
             <motion.div

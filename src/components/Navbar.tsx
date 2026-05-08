@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Logo from "./Logo";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -47,23 +48,13 @@ export default function Navbar() {
           {/* Logo */}
           <motion.a
             href="#"
-            className="flex flex-col leading-none"
+            className="flex items-center"
             whileHover={{ scale: 1.02 }}
           >
-            <span
-              className={`font-playfair font-bold tracking-tight transition-all duration-300 ${
-                scrolled ? "text-2xl text-[#0E5A43]" : "text-3xl text-[#FAF7F2]"
-              }`}
-            >
-              TISORA
-            </span>
-            <span
-              className={`text-[9px] tracking-[0.4em] uppercase transition-all duration-300 ${
-                scrolled ? "text-[#A9C3A2]" : "text-[#A9C3A2]/80"
-              }`}
-            >
-              HYTEA
-            </span>
+            <Logo
+              size="md"
+              color={scrolled ? "#0E5A43" : "#FAF7F2"}
+            />
           </motion.a>
 
           {/* Desktop nav */}
@@ -137,6 +128,7 @@ export default function Navbar() {
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             <div className="flex flex-col items-center gap-8">
+              <Logo size="lg" color="#FAF7F2" className="mb-4" />
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.label}

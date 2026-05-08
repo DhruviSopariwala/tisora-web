@@ -6,11 +6,11 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 const flavours = [
   {
     id: "lemon",
-    name: "Lemon HYTEA",
+    name: "Lemon Mint Sage",
     tagline: "Bright. Zesty. Electric.",
     description:
-      "A burst of sun-ripened citrus meets the clean depth of natural tea. Lemon HYTEA is your morning energy, your afternoon reset, and your evening wind-down — all in one refreshing can.",
-    notes: ["Bright citrus top notes", "Clean tea mid-palate", "Crisp, dry finish"],
+      "A burst of sun-ripened citrus meets fresh mint and earthy sage, balanced with the clean depth of natural tea. Lemon Mint Sage is your morning energy, your afternoon reset — all in one refreshing bottle.",
+    notes: ["Bright citrus top notes", "Fresh mint mid-palate", "Crisp, herbal finish"],
     emoji: "🍋",
     primaryColor: "#F6D34E",
     secondaryColor: "#B68B5E",
@@ -23,10 +23,10 @@ const flavours = [
   },
   {
     id: "peach",
-    name: "Peach HYTEA",
+    name: "Juicy Peach",
     tagline: "Soft. Juicy. Warm.",
     description:
-      "Velvet-smooth peach meets the gentle warmth of natural tea. Peach HYTEA wraps you in a golden afternoon glow — sweet without being cloying, refreshing without being sharp.",
+      "Velvet-smooth peach meets the gentle warmth of natural tea. Juicy Peach wraps you in a golden afternoon glow — sweet without being cloying, refreshing without being sharp.",
     notes: ["Ripe peach sweetness", "Floral tea character", "Smooth, lingering finish"],
     emoji: "🍑",
     primaryColor: "#F7A76C",
@@ -146,8 +146,28 @@ export default function FlavourSection() {
                   </motion.div>
                 )}
 
+                {/* Bottle image */}
+                <div className="flex justify-center mb-6">
+                  <motion.img
+                    src={f.id === "lemon"
+                      ? "/lemon-bottle-removebg-preview.png"
+                      : "/peach-bottle-removebg-preview.png"}
+                    alt={f.name}
+                    style={{
+                      width: 100,
+                      height: "auto",
+                      objectFit: "contain",
+                      filter: f.id === "lemon"
+                        ? "drop-shadow(-4px 12px 16px rgba(14,90,67,0.35))"
+                        : "drop-shadow(-4px 12px 16px rgba(182,100,50,0.35))",
+                    }}
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.8 }}
+                  />
+                </div>
+
                 {/* Emoji */}
-                <div className="text-5xl mb-4">{f.emoji}</div>
+                <div className="text-3xl mb-3">{f.emoji}</div>
 
                 {/* Name */}
                 <h3

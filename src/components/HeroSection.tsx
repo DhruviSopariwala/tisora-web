@@ -54,54 +54,41 @@ function IceCube({ style, delay }: { style: React.CSSProperties; delay: number }
   );
 }
 
-function ProductCan({ flavor }: { flavor: "lemon" | "peach" }) {
+function ProductBottle({ flavor }: { flavor: "lemon" | "peach" }) {
   const isLemon = flavor === "lemon";
-  const primary = isLemon ? "#F6D34E" : "#F7A76C";
-  const secondary = isLemon ? "#B68B5E" : "#E8855A";
 
   return (
     <motion.div
-      animate={{ y: [0, -12, 0] }}
-      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: isLemon ? 0 : 1 }}
-      whileHover={{ scale: 1.06 }}
+      className="relative"
+      animate={{ y: [0, -14, 0] }}
+      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: isLemon ? 0 : 1.2 }}
+      whileHover={{ scale: 1.08, rotate: isLemon ? -3 : 3 }}
+      style={{ perspective: "800px" }}
     >
-      <svg
-        viewBox="0 0 120 220"
+      {/* Glow beneath bottle */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-4 rounded-full blur-xl opacity-60"
         style={{
-          width: 110,
-          filter: `drop-shadow(0 16px 32px ${primary}70)`,
+          background: isLemon
+            ? "radial-gradient(ellipse, rgba(169,195,162,0.8), transparent)"
+            : "radial-gradient(ellipse, rgba(247,167,108,0.8), transparent)",
         }}
-      >
-        <defs>
-          <linearGradient id={`cg-${flavor}`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={secondary} stopOpacity="0.75" />
-            <stop offset="35%" stopColor={primary} />
-            <stop offset="65%" stopColor={primary} />
-            <stop offset="100%" stopColor={secondary} stopOpacity="0.55" />
-          </linearGradient>
-          <linearGradient id={`tg-${flavor}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#ccc" />
-            <stop offset="100%" stopColor="#999" />
-          </linearGradient>
-          <linearGradient id={`sg-${flavor}`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0)" />
-            <stop offset="40%" stopColor="rgba(255,255,255,0.35)" />
-            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-          </linearGradient>
-        </defs>
-        <ellipse cx="60" cy="22" rx="42" ry="8" fill={`url(#tg-${flavor})`} />
-        <rect x="52" y="14" width="16" height="4" rx="2" fill="#888" />
-        <rect x="58" y="10" width="4" height="8" rx="1" fill="#999" />
-        <path d="M18 22 Q18 18 60 18 Q102 18 102 22 L102 195 Q102 210 60 210 Q18 210 18 195 Z" fill={`url(#cg-${flavor})`} />
-        <path d="M18 22 Q18 18 60 18 Q102 18 102 22 L102 195 Q102 210 60 210 Q18 210 18 195 Z" fill={`url(#sg-${flavor})`} />
-        <ellipse cx="60" cy="200" rx="42" ry="10" fill={secondary} opacity="0.65" />
-        <text x="60" y="55" textAnchor="middle" fontSize="20">{isLemon ? "🍋" : "🍑"}</text>
-        <text x="60" y="98" textAnchor="middle" fill="#FAF7F2" fontSize="10" fontWeight="bold" fontFamily="serif" letterSpacing="3">TISORA</text>
-        <text x="60" y="116" textAnchor="middle" fill="#FAF7F2" fontSize="17" fontWeight="bold" fontFamily="serif" letterSpacing="2">HYTEA</text>
-        <text x="60" y="132" textAnchor="middle" fill="#FAF7F2" fontSize="7.5" fontFamily="sans-serif" letterSpacing="2" opacity="0.9">{isLemon ? "LEMON" : "PEACH"}</text>
-        <line x1="32" y1="142" x2="88" y2="142" stroke="#FAF7F2" strokeWidth="0.5" opacity="0.4" />
-        <text x="60" y="154" textAnchor="middle" fill="#FAF7F2" fontSize="5.5" fontFamily="sans-serif" letterSpacing="1" opacity="0.65">WITH ELECTROLYTES</text>
-      </svg>
+      />
+
+      <img
+        src={isLemon
+          ? "/lemon-bottle-removebg-preview.png"
+          : "/peach-bottle-removebg-preview.png"}
+        alt={isLemon ? "TISORA HyTea Lemon Mint Sage" : "TISORA HyTea Juicy Peach"}
+        style={{
+          width: 140,
+          height: "auto",
+          objectFit: "contain",
+          filter: isLemon
+            ? "drop-shadow(-8px 16px 24px rgba(14,90,67,0.5)) drop-shadow(8px 8px 16px rgba(169,195,162,0.3))"
+            : "drop-shadow(-8px 16px 24px rgba(182,100,50,0.5)) drop-shadow(8px 8px 16px rgba(247,167,108,0.3))",
+        }}
+      />
     </motion.div>
   );
 }
@@ -174,7 +161,7 @@ export default function HeroSection() {
 
         {/* Headline */}
         <motion.h1
-          className="font-playfair font-bold text-[#FAF7F2] leading-[1.1] mb-6"
+          className="font-playfair font-bold text-[#FAF7F2] leading-[1.1] mb-4"
           style={{ fontSize: "clamp(2.8rem, 8vw, 5.5rem)" }}
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
@@ -193,6 +180,16 @@ export default function HeroSection() {
             Reimagined.
           </span>
         </motion.h1>
+
+        {/* Tagline */}
+        <motion.p
+          className="text-[#F6D34E] text-sm tracking-[0.3em] uppercase font-semibold mb-6"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.9 }}
+        >
+          Your Daily Reset Drink
+        </motion.p>
 
         {/* Subheadline */}
         <motion.p
@@ -214,9 +211,9 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 1.2, ease: "easeOut" }}
         >
           <div className="flex flex-col items-center gap-3">
-            <ProductCan flavor="lemon" />
-            <span className="text-[#F6D34E] text-xs tracking-[0.35em] uppercase font-medium">
-              Lemon
+            <ProductBottle flavor="lemon" />
+            <span className="text-[#A9C3A2] text-xs tracking-[0.35em] uppercase font-medium">
+              Lemon Mint Sage
             </span>
           </div>
 
@@ -227,9 +224,9 @@ export default function HeroSection() {
           </div>
 
           <div className="flex flex-col items-center gap-3">
-            <ProductCan flavor="peach" />
+            <ProductBottle flavor="peach" />
             <span className="text-[#F7A76C] text-xs tracking-[0.35em] uppercase font-medium">
-              Peach
+              Juicy Peach
             </span>
           </div>
         </motion.div>
