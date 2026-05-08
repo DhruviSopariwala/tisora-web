@@ -47,6 +47,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  position: relative;
 }
 
 body {
@@ -54,6 +55,7 @@ body {
   color: #0E5A43;
   font-family: 'Montserrat', system-ui, sans-serif;
   overflow-x: hidden;
+  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -61,6 +63,7 @@ body {
 /* ─── 3D rendering ──────────────────────────────────────── */
 * {
   -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
 
 .tilt-card {
