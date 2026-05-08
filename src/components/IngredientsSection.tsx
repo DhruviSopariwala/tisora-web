@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTilt } from "@/hooks/useTilt";
 
 const ingredients = [
   {
@@ -19,7 +20,7 @@ const ingredients = [
   {
     id: "khandsari",
     emoji: "🌾",
-    name: "Khandsari Sugar",
+    name: "Khandsari Sugar & Stevia",
     tagline: "Naturally Refined",
     description:
       "Khandsari is a minimally processed, natural cane sugar that retains trace minerals and a subtle molasses character. A cleaner sweetness — the way nature intended.",
@@ -52,22 +53,32 @@ function IngredientCard({
   isInView: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
+  const { ref: tiltRef, onMouseMove, onMouseLeave } = useTilt({ max: 14, scale: 1.04, speed: 500 });
 
   return (
     <motion.div
+      ref={tiltRef}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
       className="relative rounded-2xl overflow-hidden cursor-default"
       style={{
         background: hovered ? ingredient.gradient : "rgba(255,255,255,0.85)",
         border: `1px solid ${hovered ? ingredient.color + "25" : "rgba(14,90,67,0.08)"}`,
         padding: "36px 32px",
         transition: "background 0.35s ease, border-color 0.35s ease",
+        transformStyle: "preserve-3d",
+        willChange: "transform",
       }}
-      initial={{ opacity: 0, y: 48 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay: index * 0.14, ease: "easeOut" }}
+      initial={{ opacity: 0, rotateY: -90, z: -100 }}
+      animate={isInView ? { opacity: 1, rotateY: 0, z: 0 } : {}}
+      transition={{
+        duration: 0.8,
+        delay: index * 0.18,
+        ease: [0.22, 1, 0.36, 1],
+        rotateY: { duration: 0.7, delay: index * 0.18 },
+      }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      whileHover={{ y: -8, boxShadow: `0 16px 40px ${ingredient.color}18` }}
     >
       {/* Decorative circle */}
       <div
@@ -189,7 +200,7 @@ export default function IngredientsSection() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.7 }}
         >
-          No artificial colours · No preservatives · No compromise
+          No artificial colours · No compromise
         </motion.p>
       </div>
     </section>

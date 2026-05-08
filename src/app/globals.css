@@ -58,6 +58,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ─── 3D rendering ──────────────────────────────────────── */
+* {
+  -webkit-transform-style: preserve-3d;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-card-inner {
+  transform: translateZ(20px);
+}
+
 /* ─── Custom scrollbar ──────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: #FAF7F2; }

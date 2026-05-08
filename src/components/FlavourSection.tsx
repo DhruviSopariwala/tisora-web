@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useTilt } from "@/hooks/useTilt";
 
 const flavours = [
   {
@@ -18,8 +19,10 @@ const flavours = [
     bgGradient: "linear-gradient(160deg, #FFFBEA 0%, #FFF5C0 40%, #FAF7F2 100%)",
     cardBg: "rgba(255,251,234,0.95)",
     cardBorder: "rgba(246,211,78,0.35)",
+    blobColor: "rgba(246,211,78,0.25)",
     mood: "Energetic & Uplifting",
     bestFor: ["Morning boost", "Post-workout", "Study sessions"],
+    bottle: "/lemon-bottle-removebg-preview.png",
   },
   {
     id: "peach",
@@ -35,8 +38,10 @@ const flavours = [
     bgGradient: "linear-gradient(160deg, #FFF5EE 0%, #FFE8D4 40%, #FAF7F2 100%)",
     cardBg: "rgba(255,245,238,0.95)",
     cardBorder: "rgba(247,167,108,0.35)",
+    blobColor: "rgba(247,167,108,0.25)",
     mood: "Calm & Indulgent",
     bestFor: ["Afternoon treat", "Relaxation", "Social moments"],
+    bottle: "/peach-bottle-removebg-preview.png",
   },
 ];
 
@@ -45,6 +50,7 @@ export default function FlavourSection() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [activeId, setActiveId] = useState("lemon");
   const active = flavours.find((f) => f.id === activeId)!;
+  const { ref: bottleTilt, onMouseMove: bottleMove, onMouseLeave: bottleLeave } = useTilt({ max: 20, scale: 1.08, speed: 400 });
 
   return (
     <section
@@ -62,24 +68,35 @@ export default function FlavourSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.55 }}
+          transition={{ duration: 0.6 }}
         />
       </AnimatePresence>
 
-      {/* Soft blob */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeId + "-blob"}
-            className="absolute top-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl"
-            style={{ background: active.primaryColor, opacity: 0.12 }}
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.12 }}
-            exit={{ scale: 0.6, opacity: 0 }}
-            transition={{ duration: 0.7 }}
-          />
-        </AnimatePresence>
-      </div>
+      {/* Morphing blob */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeId + "-blob"}
+          className="absolute pointer-events-none"
+          style={{
+            top: "10%", right: "-10%",
+            width: 500, height: 500,
+            background: active.blobColor,
+            borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
+            filter: "blur(60px)",
+          }}
+          animate={{
+            borderRadius: [
+              "60% 40% 30% 70% / 60% 30% 70% 40%",
+              "30% 60% 70% 40% / 50% 60% 30% 60%",
+              "60% 40% 30% 70% / 60% 30% 70% 40%",
+            ],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          exit={{ opacity: 0, scale: 0.5 }}
+        />
+      </AnimatePresence>
 
       <div className="section-container relative z-10">
 
@@ -97,162 +114,201 @@ export default function FlavourSection() {
             className="font-playfair font-bold text-[#0E5A43] leading-tight mb-5"
             style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
           >
-            Two flavours. <span className="italic">One obsession.</span>
+            Two flavours.{" "}
+            <span className="italic" style={{
+              background: "linear-gradient(135deg, #0E5A43, #A9C3A2)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>
+              One obsession.
+            </span>
           </h2>
-          <p className="text-[#0E5A43]/55 max-w-md mx-auto text-sm md:text-base">
-            Each HYTEA flavour is crafted to deliver a distinct experience — tap to explore.
-          </p>
+
+          {/* Flavour toggle pills */}
+          <div className="flex items-center justify-center gap-3 mt-6">
+            {flavours.map((f) => (
+              <motion.button
+                key={f.id}
+                onClick={() => setActiveId(f.id)}
+                className="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
+                style={{
+                  background: activeId === f.id ? f.primaryColor : "rgba(255,255,255,0.6)",
+                  color: activeId === f.id ? f.textColor : "#0E5A43",
+                  border: `2px solid ${activeId === f.id ? f.primaryColor : "rgba(14,90,67,0.15)"}`,
+                  boxShadow: activeId === f.id ? `0 8px 24px ${f.primaryColor}50` : "none",
+                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                {f.emoji} {f.name}
+              </motion.button>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Flavour cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {flavours.map((f, i) => {
-            const isActive = f.id === activeId;
-            return (
-              <motion.div
-                key={f.id}
-                className="relative rounded-2xl overflow-hidden cursor-pointer"
-                style={{
-                  background: f.cardBg,
-                  border: `2px solid ${isActive ? f.primaryColor + "55" : f.cardBorder}`,
-                  boxShadow: isActive ? `0 16px 48px ${f.primaryColor}28` : "0 2px 16px rgba(0,0,0,0.04)",
-                  padding: "36px 32px",
-                }}
-                initial={{ opacity: 0, y: 48 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.65, delay: i * 0.15 }}
-                whileHover={{ scale: 1.015 }}
-                onClick={() => setActiveId(f.id)}
-              >
-                {/* Floating fruit — top right, clipped */}
-                <div
-                  className="absolute top-4 right-4 text-4xl opacity-20 pointer-events-none select-none"
-                  aria-hidden
-                >
-                  {f.emoji}
-                </div>
-
-                {/* Active dot */}
-                {isActive && (
-                  <motion.div
-                    className="flex items-center gap-2 mb-4"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                  >
-                    <span className="w-2 h-2 rounded-full" style={{ background: f.primaryColor }} />
-                    <span className="text-[10px] tracking-[0.35em] uppercase font-semibold" style={{ color: f.primaryColor }}>
-                      Selected
-                    </span>
-                  </motion.div>
-                )}
-
-                {/* Bottle image */}
-                <div className="flex justify-center mb-6">
-                  <motion.img
-                    src={f.id === "lemon"
-                      ? "/lemon-bottle-removebg-preview.png"
-                      : "/peach-bottle-removebg-preview.png"}
-                    alt={f.name}
-                    style={{
-                      width: 100,
-                      height: "auto",
-                      objectFit: "contain",
-                      filter: f.id === "lemon"
-                        ? "drop-shadow(-4px 12px 16px rgba(14,90,67,0.35))"
-                        : "drop-shadow(-4px 12px 16px rgba(182,100,50,0.35))",
-                    }}
-                    animate={{ y: [0, -6, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.8 }}
-                  />
-                </div>
-
-                {/* Emoji */}
-                <div className="text-3xl mb-3">{f.emoji}</div>
-
-                {/* Name */}
-                <h3
-                  className="font-playfair font-bold mb-1"
-                  style={{ color: f.textColor, fontSize: "1.5rem" }}
-                >
-                  {f.name}
-                </h3>
-
-                {/* Tagline */}
-                <p className="text-sm font-medium tracking-wide mb-4" style={{ color: f.primaryColor }}>
-                  {f.tagline}
-                </p>
-
-                {/* Description */}
-                <p className="text-[#0E5A43]/65 text-sm leading-relaxed mb-6">
-                  {f.description}
-                </p>
-
-                {/* Tasting notes */}
-                <div className="mb-5">
-                  <p className="text-[10px] tracking-[0.35em] uppercase text-[#0E5A43]/35 mb-3">
-                    Tasting Notes
-                  </p>
-                  <div className="space-y-2">
-                    {f.notes.map((note, ni) => (
-                      <div key={ni} className="flex items-center gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: f.primaryColor }} />
-                        <span className="text-sm text-[#0E5A43]/65">{note}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Mood badge */}
-                <span
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium"
-                  style={{ background: f.primaryColor + "18", color: f.textColor }}
-                >
-                  <span>✦</span> {f.mood}
-                </span>
-
-                {/* Bottom bar */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-[3px]"
-                  style={{
-                    background: `linear-gradient(90deg, ${f.primaryColor}, ${f.secondaryColor})`,
-                    opacity: isActive ? 1 : 0.25,
-                  }}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Best-for tags */}
+        {/* Immersive split layout */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeId + "-tags"}
-            className="text-center"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.35 }}
+            key={activeId}
+            className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <p className="text-[#0E5A43]/35 text-xs tracking-[0.35em] uppercase mb-4">
-              {active.name} is perfect for
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {active.bestFor.map((use, i) => (
-                <motion.span
-                  key={i}
-                  className="px-5 py-2 rounded-full text-sm font-medium"
+            {/* Left: Bottle showcase */}
+            <div className="flex flex-col items-center justify-center">
+              {/* Halo ring */}
+              <div className="relative flex items-center justify-center">
+                <motion.div
+                  className="absolute rounded-full"
                   style={{
-                    background: active.primaryColor + "18",
-                    color: active.textColor,
-                    border: `1px solid ${active.primaryColor}35`,
+                    width: 280, height: 280,
+                    background: `radial-gradient(circle, ${active.blobColor} 0%, transparent 70%)`,
                   }}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.08 }}
+                  animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute rounded-full border-2 border-dashed"
+                  style={{
+                    width: 260, height: 260,
+                    borderColor: active.primaryColor + "40",
+                  }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.div
+                  className="absolute rounded-full border"
+                  style={{
+                    width: 220, height: 220,
+                    borderColor: active.primaryColor + "25",
+                  }}
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                />
+
+                {/* Bottle */}
+                <div
+                  ref={bottleTilt}
+                  onMouseMove={bottleMove}
+                  onMouseLeave={bottleLeave}
+                  className="relative z-10"
+                  style={{ transformStyle: "preserve-3d", willChange: "transform" }}
                 >
-                  {use}
-                </motion.span>
-              ))}
+                  <motion.img
+                    key={activeId + "-bottle"}
+                    src={active.bottle}
+                    alt={active.name}
+                    style={{
+                      width: 180,
+                      height: "auto",
+                      filter: `drop-shadow(0 24px 48px ${active.primaryColor}60) drop-shadow(0 8px 16px rgba(0,0,0,0.15))`,
+                    }}
+                    initial={{ rotateY: -180, opacity: 0, scale: 0.8 }}
+                    animate={{ rotateY: 0, opacity: 1, scale: 1, y: [0, -16, 0] }}
+                    transition={{
+                      rotateY: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                      opacity: { duration: 0.4 },
+                      scale: { duration: 0.5 },
+                      y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.7 },
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Flavour label */}
+              <motion.div
+                className="mt-8 text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <span
+                  className="text-4xl font-playfair font-bold"
+                  style={{ color: active.textColor }}
+                >
+                  {active.emoji}
+                </span>
+                <p className="text-sm font-semibold tracking-widest uppercase mt-2" style={{ color: active.primaryColor }}>
+                  {active.tagline}
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Right: Details */}
+            <div>
+              <motion.div
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-5"
+                style={{ background: active.primaryColor + "20", color: active.textColor }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                <span className="w-2 h-2 rounded-full" style={{ background: active.primaryColor }} />
+                {active.mood}
+              </motion.div>
+
+              <h3
+                className="font-playfair font-bold mb-4"
+                style={{ color: active.textColor, fontSize: "clamp(1.8rem, 4vw, 2.5rem)" }}
+              >
+                {active.name}
+              </h3>
+
+              <p className="text-[#0E5A43]/70 leading-relaxed mb-8 text-sm md:text-base">
+                {active.description}
+              </p>
+
+              {/* Tasting notes */}
+              <div className="mb-8">
+                <p className="text-[10px] tracking-[0.4em] uppercase text-[#0E5A43]/35 mb-4">
+                  Tasting Notes
+                </p>
+                <div className="space-y-3">
+                  {active.notes.map((note, i) => (
+                    <motion.div
+                      key={note}
+                      className="flex items-center gap-3"
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 + i * 0.1 }}
+                    >
+                      <div
+                        className="w-8 h-[2px] rounded-full flex-shrink-0"
+                        style={{ background: `linear-gradient(90deg, ${active.primaryColor}, transparent)` }}
+                      />
+                      <span className="text-sm text-[#0E5A43]/70">{note}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Best for */}
+              <div>
+                <p className="text-[10px] tracking-[0.4em] uppercase text-[#0E5A43]/35 mb-3">
+                  Perfect for
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {active.bestFor.map((use, i) => (
+                    <motion.span
+                      key={use}
+                      className="px-4 py-2 rounded-full text-xs font-medium"
+                      style={{
+                        background: active.primaryColor + "18",
+                        color: active.textColor,
+                        border: `1px solid ${active.primaryColor}35`,
+                      }}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.3 + i * 0.08 }}
+                    >
+                      {use}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>

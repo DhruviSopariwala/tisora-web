@@ -9,23 +9,37 @@ import WhySection from "@/components/WhySection";
 import SocialSection from "@/components/SocialSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
+import CursorGlow from "@/components/CursorGlow";
+import PageEnter from "@/components/PageEnter";
+import WaveDivider from "@/components/WaveDivider";
 
 export default function Home() {
   return (
     <>
       <LoadingScreen />
-      <Navbar />
-      <main>
-        <HeroSection />
-        <MarqueeBar />
-        <AboutSection />
-        <IngredientsSection />
-        <FlavourSection />
-        <WhySection />
-        <SocialSection />
-        <ContactSection />
-      </main>
-      <Footer />
+      <ScrollProgressBar />
+      <CursorGlow />
+      <PageEnter>
+        <Navbar />
+        <main>
+          <HeroSection />
+          <MarqueeBar />
+          <WaveDivider fromColor="#FAF7F2" toColor="#F0EBE0" />
+          <AboutSection />
+          <WaveDivider fromColor="#FAF7F2" toColor="#F0EBE0" flip />
+          <IngredientsSection />
+          <WaveDivider fromColor="#F0EBE0" toColor="#FFFBEA" />
+          <FlavourSection />
+          <WaveDivider fromColor="#FAF7F2" toColor="#FAF7F2" flip />
+          <WhySection />
+          <WaveDivider fromColor="#FAF7F2" toColor="#F0EBE0" />
+          <SocialSection />
+          <WaveDivider fromColor="#FAF7F2" toColor="#F5EFE4" flip />
+          <ContactSection />
+        </main>
+        <Footer />
+      </PageEnter>
     </>
   );
 }
