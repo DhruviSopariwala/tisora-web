@@ -107,8 +107,8 @@ export default function Footer() {
               Flavours
             </h4>
             <div className="flex gap-4">
-              <span className="text-sm text-[#F6D34E]">🍋 Lemon</span>
-              <span className="text-sm text-[#F7A76C]">🍑 Peach</span>
+              <span className="text-sm text-[#A9C3A2]">🍋 Lemon Mint Sage</span>
+              <span className="text-sm text-[#F7A76C]">🍑 Juicy Peach</span>
             </div>
           </div>
         </div>
