@@ -39,9 +39,9 @@ export default function ContactSection() {
     width: "100%",
     padding: "12px 16px",
     borderRadius: 12,
-    border: "1px solid rgba(14,90,67,0.15)",
-    background: "rgba(14,90,67,0.03)",
-    color: "#0E5A43",
+    border: "1px solid rgba(95,122,31,0.15)",
+    background: "rgba(95,122,31,0.03)",
+    color: "#5F7A1F",
     fontSize: "0.875rem",
     outline: "none",
     transition: "border-color 0.2s",
@@ -57,26 +57,26 @@ export default function ContactSection() {
       {/* Rich background */}
       <div
         className="absolute inset-0"
-        style={{ background: "linear-gradient(160deg, #F5EFE4 0%, #FAF7F2 50%, #F0EBE0 100%)" }}
+        style={{ background: "linear-gradient(160deg, #FAF8F4 0%, #FFFFFF 50%, #FAF8F4 100%)" }}
       />
 
       {/* Animated orbs — contained behind content */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full blur-3xl opacity-25"
-          style={{ background: "radial-gradient(circle, #A9C3A2, transparent)" }}
+          style={{ background: "radial-gradient(circle, #AFC8A0, transparent)" }}
           animate={{ scale: [1, 1.3, 1], x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full blur-3xl opacity-15"
-          style={{ background: "radial-gradient(circle, #F6D34E, transparent)" }}
+          style={{ background: "radial-gradient(circle, #F6D9A8, transparent)" }}
           animate={{ scale: [1, 1.2, 1], x: [0, -20, 0], y: [0, 20, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
         />
         <motion.div
           className="absolute top-1/2 right-1/3 w-48 h-48 rounded-full blur-3xl opacity-10"
-          style={{ background: "radial-gradient(circle, #F7A76C, transparent)" }}
+          style={{ background: "radial-gradient(circle, #F6D9A8, transparent)" }}
           animate={{ scale: [1, 1.4, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 5 }}
         />
@@ -91,16 +91,16 @@ export default function ContactSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <span className="block text-[#A9C3A2] text-xs tracking-[0.45em] uppercase font-medium mb-4">
+          <span className="block text-[#AFC8A0] text-xs tracking-[0.45em] uppercase font-bold mb-4">
             Stay Connected
           </span>
           <h2
-            className="font-playfair font-bold text-[#0E5A43] leading-tight mb-5"
+            className="font-playfair font-bold text-[#5F7A1F] leading-tight mb-5"
             style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
           >
             Be first to{" "}
             <span className="italic" style={{
-              background: "linear-gradient(135deg, #0E5A43, #A9C3A2)",
+              backgroundImage: "linear-gradient(135deg, #5F7A1F, #AFC8A0)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -108,7 +108,7 @@ export default function ContactSection() {
               taste it.
             </span>
           </h2>
-          <p className="text-[#0E5A43]/60 max-w-lg mx-auto text-sm md:text-base">
+          <p className="text-[#5F7A1F]/60 max-w-lg mx-auto text-sm md:text-base">
             HYTEA is launching soon. Sign up for launch updates, exclusive
             early access, and the freshest news from TISORA.
           </p>
@@ -121,7 +121,7 @@ export default function ContactSection() {
           <motion.div
             className="relative rounded-3xl overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, #0E5A43 0%, #1D6B4F 100%)",
+              background: "linear-gradient(135deg, #5F7A1F 0%, #7A9B28 100%)",
               padding: "40px 36px",
             }}
             initial={{ opacity: 0, x: -32 }}
@@ -129,15 +129,15 @@ export default function ContactSection() {
             transition={{ duration: 0.75, delay: 0.15 }}
           >
             {/* Decorative blobs — inside overflow-hidden so they stay clipped */}
-            <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-10 translate-x-1/3 -translate-y-1/3" style={{ background: "#A9C3A2" }} />
-            <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full opacity-10 -translate-x-1/3 translate-y-1/3" style={{ background: "#F6D34E" }} />
+            <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-10 translate-x-1/3 -translate-y-1/3" style={{ background: "#AFC8A0" }} />
+            <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full opacity-10 -translate-x-1/3 translate-y-1/3" style={{ background: "#F6D9A8" }} />
 
             <div className="relative z-10">
               <div className="text-4xl mb-5">🚀</div>
-              <h3 className="font-playfair text-2xl font-bold text-[#FAF7F2] mb-3">
+              <h3 className="font-playfair text-2xl font-bold text-[#FAF8F4] mb-3">
                 Launch Notification
               </h3>
-              <p className="text-[#A9C3A2] text-sm leading-relaxed mb-8">
+              <p className="text-[#AFC8A0] text-sm leading-relaxed mb-8">
                 Be the first to know when HYTEA drops. We'll send you an
                 exclusive early access link the moment we launch.
               </p>
@@ -162,23 +162,23 @@ export default function ContactSection() {
                         borderRadius: 12,
                         border: "1px solid rgba(255,255,255,0.2)",
                         background: "rgba(255,255,255,0.1)",
-                        color: "#FAF7F2",
+                        color: "#FAF8F4",
                         fontSize: "0.875rem",
                         outline: "none",
                       }}
-                      className="placeholder-[#A9C3A2]/55"
+                      className="placeholder-[#AFC8A0]/55"
                     />
                     <motion.button
                       type="submit"
                       disabled={loading}
-                      className="w-full py-4 rounded-xl bg-[#FAF7F2] text-[#0E5A43] font-semibold text-sm tracking-wide disabled:opacity-60"
+                      className="w-full py-4 rounded-xl bg-[#F6D9A8] text-[#5F7A1F] font-bold text-sm tracking-widest uppercase shadow-md disabled:opacity-60"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       {loading ? (
                         <span className="flex items-center justify-center gap-2">
                           <motion.span
-                            className="inline-block w-4 h-4 border-2 border-[#0E5A43]/25 border-t-[#0E5A43] rounded-full"
+                            className="inline-block w-4 h-4 border-2 border-[#5F7A1F]/25 border-t-[#5F7A1F] rounded-full"
                             animate={{ rotate: 360 }}
                             transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
                           />
@@ -186,7 +186,7 @@ export default function ContactSection() {
                         </span>
                       ) : "Notify Me at Launch →"}
                     </motion.button>
-                    <p className="text-[#A9C3A2]/45 text-xs text-center">No spam. Unsubscribe anytime.</p>
+                    <p className="text-[#AFC8A0]/45 text-xs text-center">No spam. Unsubscribe anytime.</p>
                   </motion.form>
                 ) : (
                   <motion.div
@@ -197,8 +197,8 @@ export default function ContactSection() {
                     transition={{ type: "spring", stiffness: 220 }}
                   >
                     <div className="text-5xl mb-4">🎉</div>
-                    <h4 className="font-playfair text-xl font-bold text-[#FAF7F2] mb-2">You're on the list!</h4>
-                    <p className="text-[#A9C3A2] text-sm">We'll reach out the moment HYTEA launches.</p>
+                    <h4 className="font-playfair text-xl font-bold text-[#FAF8F4] mb-2">You're on the list!</h4>
+                    <p className="text-[#AFC8A0] text-sm">We'll reach out the moment HYTEA launches.</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -210,7 +210,7 @@ export default function ContactSection() {
             className="rounded-3xl"
             style={{
               background: "rgba(255,255,255,0.75)",
-              border: "1px solid rgba(14,90,67,0.1)",
+              border: "1px solid rgba(95,122,31,0.1)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
               padding: "40px 36px",
@@ -220,10 +220,10 @@ export default function ContactSection() {
             transition={{ duration: 0.75, delay: 0.25 }}
           >
             <div className="text-4xl mb-5">✉️</div>
-            <h3 className="font-playfair text-2xl font-bold text-[#0E5A43] mb-3">
+            <h3 className="font-playfair text-2xl font-bold text-[#5F7A1F] mb-3">
               Get in Touch
             </h3>
-            <p className="text-[#0E5A43]/55 text-sm leading-relaxed mb-8">
+            <p className="text-[#5F7A1F]/55 text-sm leading-relaxed mb-8">
               Questions, partnerships, press enquiries — we'd love to hear from you.
             </p>
 
@@ -238,7 +238,7 @@ export default function ContactSection() {
                   {/* Name + Email stacked on mobile, side-by-side on sm+ */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] text-[#0E5A43]/50 tracking-[0.3em] uppercase mb-2">Name</label>
+                      <label className="block text-[10px] text-[#5F7A1F]/50 tracking-[0.3em] uppercase mb-2">Name</label>
                       <input
                         type="text"
                         value={name}
@@ -246,13 +246,13 @@ export default function ContactSection() {
                         placeholder="Your name"
                         required
                         style={inputBase}
-                        className="placeholder-[#0E5A43]/30"
-                        onFocus={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.4)")}
-                        onBlur={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.15)")}
+                        className="placeholder-[#5F7A1F]/30"
+                        onFocus={(e) => (e.target.style.borderColor = "rgba(95,122,31,0.4)")}
+                        onBlur={(e) => (e.target.style.borderColor = "rgba(95,122,31,0.15)")}
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] text-[#0E5A43]/50 tracking-[0.3em] uppercase mb-2">Email</label>
+                      <label className="block text-[10px] text-[#5F7A1F]/50 tracking-[0.3em] uppercase mb-2">Email</label>
                       <input
                         type="email"
                         value={email}
@@ -260,30 +260,30 @@ export default function ContactSection() {
                         placeholder="your@email.com"
                         required
                         style={inputBase}
-                        className="placeholder-[#0E5A43]/30"
-                        onFocus={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.4)")}
-                        onBlur={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.15)")}
+                        className="placeholder-[#5F7A1F]/30"
+                        onFocus={(e) => (e.target.style.borderColor = "rgba(95,122,31,0.4)")}
+                        onBlur={(e) => (e.target.style.borderColor = "rgba(95,122,31,0.15)")}
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[10px] text-[#0E5A43]/50 tracking-[0.3em] uppercase mb-2">Message</label>
+                    <label className="block text-[10px] text-[#5F7A1F]/50 tracking-[0.3em] uppercase mb-2">Message</label>
                     <textarea
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Tell us what's on your mind..."
                       rows={4}
                       style={{ ...inputBase, resize: "none" }}
-                      className="placeholder-[#0E5A43]/30"
-                      onFocus={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.4)")}
-                      onBlur={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.15)")}
+                      className="placeholder-[#5F7A1F]/30"
+                      onFocus={(e) => (e.target.style.borderColor = "rgba(95,122,31,0.4)")}
+                      onBlur={(e) => (e.target.style.borderColor = "rgba(95,122,31,0.15)")}
                     />
                   </div>
                   <motion.button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 rounded-xl text-[#FAF7F2] font-semibold text-sm tracking-wide disabled:opacity-60"
-                    style={{ background: "linear-gradient(135deg, #0E5A43, #1D6B4F)" }}
+                    className="w-full py-4 rounded-xl text-[#FAF8F4] font-bold text-sm tracking-widest uppercase shadow-lg disabled:opacity-60"
+                    style={{ background: "linear-gradient(135deg, #5F7A1F, #7A9B28)" }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -308,8 +308,8 @@ export default function ContactSection() {
                   transition={{ type: "spring", stiffness: 220 }}
                 >
                   <div className="text-5xl mb-4">✅</div>
-                  <h4 className="font-playfair text-xl font-bold text-[#0E5A43] mb-2">Message received!</h4>
-                  <p className="text-[#0E5A43]/55 text-sm">We'll get back to you within 24 hours.</p>
+                  <h4 className="font-playfair text-xl font-bold text-[#5F7A1F] mb-2">Message received!</h4>
+                  <p className="text-[#5F7A1F]/55 text-sm">We'll get back to you within 24 hours.</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -323,12 +323,12 @@ export default function ContactSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.7 }}
         >
-          <p className="text-[#0E5A43]/35 text-xs tracking-[0.4em] uppercase">Find us on</p>
+          <p className="text-[#5F7A1F]/35 text-xs tracking-[0.4em] uppercase">Find us on</p>
           <motion.a
             href="https://instagram.com/tisora_hytea"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-[#0E5A43]/55 hover:text-[#0E5A43] transition-colors text-sm"
+            className="flex items-center gap-2 text-[#5F7A1F]/55 hover:text-[#5F7A1F] transition-colors text-sm"
             whileHover={{ scale: 1.04 }}
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

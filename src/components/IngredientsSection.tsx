@@ -13,9 +13,9 @@ const ingredients = [
     description:
       "Essential minerals that keep your body in balance. Our electrolyte blend supports hydration at a cellular level, helping you stay energised and refreshed throughout the day.",
     benefits: ["Cellular hydration", "Energy support", "Muscle recovery", "Mental clarity"],
-    color: "#0E5A43",
-    bgColor: "rgba(14,90,67,0.06)",
-    gradient: "linear-gradient(135deg, rgba(14,90,67,0.08), rgba(169,195,162,0.08))",
+    color: "#5F7A1F",
+    bgColor: "rgba(95,122,31,0.06)",
+    gradient: "linear-gradient(135deg, rgba(95,122,31,0.08), rgba(175,200,160,0.08))",
   },
   {
     id: "khandsari",
@@ -25,9 +25,9 @@ const ingredients = [
     description:
       "Khandsari is a minimally processed, natural cane sugar that retains trace minerals and a subtle molasses character. A cleaner sweetness — the way nature intended.",
     benefits: ["Minimal processing", "Natural minerals", "Gentle sweetness", "No bleaching"],
-    color: "#B68B5E",
-    bgColor: "rgba(182,139,94,0.06)",
-    gradient: "linear-gradient(135deg, rgba(182,139,94,0.08), rgba(246,211,78,0.08))",
+    color: "#B23A2E",
+    bgColor: "rgba(178,58,46,0.06)",
+    gradient: "linear-gradient(135deg, rgba(178,58,46,0.08), rgba(246,217,168,0.08))",
   },
   {
     id: "tea",
@@ -37,9 +37,9 @@ const ingredients = [
     description:
       "Real tea, not flavouring. Our natural tea extracts bring authentic depth, antioxidants, and that unmistakable freshness that only comes from genuine tea leaves.",
     benefits: ["Rich antioxidants", "Authentic flavour", "Natural caffeine", "Botanical depth"],
-    color: "#1D6B4F",
-    bgColor: "rgba(29,107,79,0.06)",
-    gradient: "linear-gradient(135deg, rgba(29,107,79,0.08), rgba(169,195,162,0.12))",
+    color: "#5F7A1F",
+    bgColor: "rgba(95,122,31,0.06)",
+    gradient: "linear-gradient(135deg, rgba(95,122,31,0.08), rgba(175,200,160,0.12))",
   },
 ];
 
@@ -62,10 +62,12 @@ function IngredientCard({
       onMouseLeave={onMouseLeave}
       className="relative rounded-2xl overflow-hidden cursor-default"
       style={{
-        background: hovered ? ingredient.gradient : "rgba(255,255,255,0.85)",
-        border: `1px solid ${hovered ? ingredient.color + "25" : "rgba(14,90,67,0.08)"}`,
+        background: hovered ? ingredient.gradient : "rgba(255,255,255,0.75)",
+        border: `1px solid ${hovered ? ingredient.color + "35" : "rgba(95,122,31,0.12)"}`,
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
         padding: "36px 32px",
-        transition: "background 0.35s ease, border-color 0.35s ease",
+        transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
         transformStyle: "preserve-3d",
         willChange: "transform",
       }}
@@ -123,7 +125,7 @@ function IngredientCard({
         </h3>
 
         {/* Description */}
-        <p className="text-[#0E5A43]/65 text-sm leading-relaxed mb-6">
+        <p className="text-[#5F7A1F]/65 text-sm leading-relaxed mb-6">
           {ingredient.description}
         </p>
 
@@ -131,8 +133,8 @@ function IngredientCard({
         <div className="grid grid-cols-2 gap-y-2 gap-x-3">
           {ingredient.benefits.map((b, i) => (
             <div key={i} className="flex items-center gap-2">
-              <span className="text-[10px]" style={{ color: ingredient.color }}>✦</span>
-              <span className="text-xs text-[#0E5A43]/65">{b}</span>
+              <span className="text-[10px]" style={{ color: ingredient.id === 'khandsari' ? '#B23A2E' : ingredient.color }}>✦</span>
+              <span className="text-xs text-[#5F7A1F]/65">{b}</span>
             </div>
           ))}
         </div>
@@ -151,14 +153,14 @@ export default function IngredientsSection() {
       ref={ref}
       className="relative overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, #F0EBE0 0%, #FAF7F2 100%)",
+        background: "linear-gradient(180deg, #FFFFFF 0%, #FAF8F4 100%)",
         padding: "96px 0",
       }}
     >
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.04] blur-3xl"
-          style={{ background: "#0E5A43" }}
+          style={{ background: "#5F7A1F" }}
         />
       </div>
 
@@ -171,16 +173,16 @@ export default function IngredientsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <span className="block text-[#A9C3A2] text-xs tracking-[0.45em] uppercase font-medium mb-4">
+          <span className="block text-[#AFC8A0] text-xs tracking-[0.45em] uppercase font-bold mb-4">
             What's Inside
           </span>
           <h2
-            className="font-playfair font-bold text-[#0E5A43] leading-tight mb-5"
+            className="font-playfair font-bold text-[#5F7A1F] leading-tight mb-5"
             style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
           >
             Ingredients that <span className="italic">matter.</span>
           </h2>
-          <p className="text-[#0E5A43]/55 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
+          <p className="text-[#5F7A1F]/55 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
             Every ingredient in HYTEA is chosen with intention. No fillers,
             no shortcuts — just what your body actually needs.
           </p>
@@ -195,7 +197,7 @@ export default function IngredientsSection() {
 
         {/* Footer note */}
         <motion.p
-          className="text-center text-[#0E5A43]/35 text-xs tracking-[0.3em] uppercase mt-10"
+          className="text-center text-[#5F7A1F]/35 text-xs tracking-[0.3em] uppercase mt-10"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.7 }}

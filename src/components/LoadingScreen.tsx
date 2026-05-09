@@ -42,110 +42,143 @@ export default function LoadingScreen() {
           <motion.div
             key="loader"
             className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #0E5A43 0%, #1D6B4F 50%, #0a3d2e 100%)" }}
-            exit={{ opacity: 0, scale: 1.04 }}
-            transition={{ duration: 0.35, ease: "easeIn" }}
+            style={{ background: "#FAF8F4" }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.4, ease: "easeIn" }}
           >
-            {/* Concentric rings */}
+            {/* Soft decorative background circles */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              {[0, 1, 2, 3, 4].map((i) => (
+              {[0, 1, 2, 3].map((i) => (
                 <motion.div
                   key={i}
-                  className="absolute rounded-full"
+                  className="absolute rounded-full border border-[#5F7A1F]/5"
                   style={{
-                    width: 120 + i * 100,
-                    height: 120 + i * 100,
-                    border: "1px solid rgba(169,195,162,0.12)",
+                    width: 200 + i * 150,
+                    height: 200 + i * 150,
                   }}
-                  animate={{ scale: [1, 1.08, 1], opacity: [0.2, 0.5, 0.2] }}
-                  transition={{ duration: 3 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
+                  animate={{ 
+                    scale: [1, 1.1, 1], 
+                    opacity: [0.3, 0.6, 0.3],
+                    rotate: [0, 360] 
+                  }}
+                  transition={{ 
+                    duration: 15 + i * 5, 
+                    repeat: Infinity, 
+                    ease: "linear" 
+                  }}
                 />
               ))}
             </div>
 
-            {/* Floating leaves */}
+            {/* Floating botanical elements */}
             {[0, 1, 2, 3, 4, 5].map((i) => (
               <motion.div
                 key={i}
-                className="absolute text-xl select-none pointer-events-none"
-                style={{ left: `${15 + i * 14}%`, top: `${20 + (i % 3) * 20}%` }}
-                animate={{ y: [0, -25, 0], rotate: [0, 15, -10, 0], opacity: [0.08, 0.22, 0.08] }}
-                transition={{ duration: 4 + i * 0.6, repeat: Infinity, delay: i * 0.5 }}
+                className="absolute text-2xl select-none pointer-events-none opacity-20"
+                style={{ 
+                  left: `${10 + i * 16}%`, 
+                  top: `${15 + (i % 3) * 25}%`,
+                  color: "#5F7A1F" 
+                }}
+                animate={{ 
+                  y: [0, -40, 0], 
+                  rotate: [0, 20, -20, 0],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{ 
+                  duration: 6 + i, 
+                  repeat: Infinity, 
+                  delay: i * 0.4,
+                  ease: "easeInOut"
+                }}
               >
-                🍃
+                {["🍃", "🌿", "🌱", "✨"][i % 4]}
               </motion.div>
             ))}
 
             {/* Logo block */}
             <motion.div
               className="relative z-10 flex flex-col items-center"
-              initial={{ opacity: 0, scale: 0.75, y: 32 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* "Introducing" label */}
+              {/* "TISORA" label */}
               <motion.span
-                className="text-[#A9C3A2] text-xs tracking-[0.5em] uppercase font-light mb-4 block"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2.5, repeat: Infinity }}
+                className="text-[#AFC8A0] text-[10px] tracking-[0.6em] uppercase font-bold mb-6 block"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
               >
-                Introducing
+                The Future of
               </motion.span>
 
               {/* TISORA logo */}
-              <Logo size="xl" color="#FAF7F2" />
+              <div className="relative">
+                <Logo size="xl" color="#5F7A1F" />
+                {/* Glow effect under logo */}
+                <motion.div 
+                  className="absolute inset-0 -z-10 blur-2xl opacity-20"
+                  style={{ background: "radial-gradient(circle, #F6D9A8, transparent)" }}
+                  animate={{ scale: [1, 1.5, 1], opacity: [0.1, 0.3, 0.1] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+              </div>
 
               {/* HYTEA line */}
               <motion.div
-                className="mt-3 flex items-center gap-3"
+                className="mt-6 flex items-center gap-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
+                transition={{ delay: 0.6 }}
               >
                 <motion.div
-                  className="h-px bg-[#A9C3A2]/50"
+                  className="h-[1px] bg-[#5F7A1F]/20"
                   initial={{ width: 0 }}
-                  animate={{ width: 48 }}
-                  transition={{ delay: 0.9, duration: 0.5 }}
+                  animate={{ width: 60 }}
+                  transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
                 />
-                <span className="text-[#A9C3A2] text-xs tracking-[0.5em] uppercase">HYTEA</span>
+                <span className="text-[#5F7A1F] text-xs tracking-[0.6em] uppercase font-bold">HYTEA</span>
                 <motion.div
-                  className="h-px bg-[#A9C3A2]/50"
+                  className="h-[1px] bg-[#5F7A1F]/20"
                   initial={{ width: 0 }}
-                  animate={{ width: 48 }}
-                  transition={{ delay: 0.9, duration: 0.5 }}
+                  animate={{ width: 60 }}
+                  transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
                 />
               </motion.div>
 
               {/* Tagline */}
               <motion.p
-                className="text-[#F6D34E] text-[11px] tracking-[0.3em] uppercase font-semibold mt-2"
+                className="text-[#B23A2E] text-[10px] tracking-[0.4em] uppercase font-bold mt-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.2 }}
+                transition={{ delay: 1.1 }}
               >
                 Your Daily Reset Drink
               </motion.p>
 
-              {/* Progress bar */}
+              {/* Progress interaction */}
               <motion.div
-                className="mt-10 w-52"
+                className="mt-14 w-64 flex flex-col items-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9 }}
               >
-                <div className="h-[2px] bg-white/10 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full transition-all duration-100"
-                    style={{
-                      width: `${progress}%`,
-                      background: "linear-gradient(90deg, #A9C3A2, #F6D34E)",
-                    }}
+                <div className="w-full h-[1px] bg-[#5F7A1F]/10 relative overflow-hidden">
+                  <motion.div
+                    className="absolute inset-y-0 left-0 bg-[#5F7A1F]"
+                    style={{ width: `${progress}%` }}
+                    transition={{ type: "spring", stiffness: 100, damping: 20 }}
                   />
                 </div>
-                <p className="text-[#A9C3A2]/50 text-[10px] mt-2 text-center tracking-widest">
-                  {progress < 100 ? "Loading..." : "Welcome"}
-                </p>
+                <div className="flex justify-between w-full mt-3">
+                  <span className="text-[#5F7A1F]/40 text-[9px] tracking-widest uppercase font-bold">
+                    {progress < 100 ? "Brewing Freshness" : "Ready"}
+                  </span>
+                  <span className="text-[#5F7A1F]/60 text-[9px] font-bold tabular-nums">
+                    {Math.round(progress)}%
+                  </span>
+                </div>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -159,20 +192,18 @@ export default function LoadingScreen() {
             <motion.div
               key="wipe-left"
               className="fixed inset-y-0 left-0 z-[10000]"
-              style={{ width: "50%", background: "linear-gradient(to right, #0a3d2e, #0E5A43)" }}
+              style={{ width: "50%", background: "#5F7A1F" }}
               initial={{ x: 0 }}
               animate={{ x: "-100%" }}
-              exit={{}}
-              transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             />
             <motion.div
               key="wipe-right"
               className="fixed inset-y-0 right-0 z-[10000]"
-              style={{ width: "50%", background: "linear-gradient(to left, #0a3d2e, #1D6B4F)" }}
+              style={{ width: "50%", background: "#5F7A1F" }}
               initial={{ x: 0 }}
               animate={{ x: "100%" }}
-              exit={{}}
-              transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             />
           </>
         )}

@@ -6,15 +6,15 @@
   --font-montserrat: 'Montserrat', system-ui, sans-serif;
   --font-sans: 'Montserrat', system-ui, sans-serif;
 
-  --color-forest-green: #0E5A43;
-  --color-botanical-green: #1D6B4F;
-  --color-sage-green: #A9C3A2;
-  --color-cream-beige: #F5EFE4;
-  --color-citrus-yellow: #F6D34E;
-  --color-peach-orange: #F7A76C;
-  --color-mint-green: #DDEBD0;
-  --color-ivory: #FAF7F2;
-  --color-brown-sugar: #B68B5E;
+  --color-forest-green: #5F7A1F;
+  --color-botanical-green: #5F7A1F;
+  --color-sage-green: #AFC8A0;
+  --color-cream-beige: #FAF8F4;
+  --color-citrus-yellow: #F6D9A8;
+  --color-peach-orange: #F6D9A8;
+  --color-mint-green: #AFC8A0;
+  --color-ivory: #FAF8F4;
+  --color-brown-sugar: #B23A2E;
 }
 
 @layer utilities {
@@ -60,8 +60,8 @@ html {
 }
 
 body {
-  background: #FAF7F2;
-  color: #0E5A43;
+  background: #FAF8F4;
+  color: #5F7A1F;
   font-family: 'Montserrat', system-ui, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -107,8 +107,8 @@ section {
 
 /* ─── Custom scrollbar ──────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #FAF7F2; }
-::-webkit-scrollbar-thumb { background: #0E5A43; border-radius: 3px; }
+::-webkit-scrollbar-track { background: #FAF8F4; }
+::-webkit-scrollbar-thumb { background: #5F7A1F; border-radius: 3px; }
 
 /* ─── Glassmorphism ─────────────────────────────────────── */
 .glass {
@@ -120,7 +120,7 @@ section {
 
 /* ─── Gradient text helpers ─────────────────────────────── */
 .gradient-text-green {
-  background: linear-gradient(135deg, #0E5A43, #A9C3A2);
+  background: linear-gradient(135deg, #5F7A1F, #AFC8A0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

@@ -13,13 +13,13 @@ const flavours = [
       "A burst of sun-ripened citrus meets fresh mint and earthy sage, balanced with the clean depth of natural tea. Lemon Mint Sage is your morning energy, your afternoon reset — all in one refreshing bottle.",
     notes: ["Bright citrus top notes", "Fresh mint mid-palate", "Crisp, herbal finish"],
     emoji: "🍋",
-    primaryColor: "#F6D34E",
-    secondaryColor: "#B68B5E",
-    textColor: "#4A2E00",
-    bgGradient: "linear-gradient(160deg, #FFFBEA 0%, #FFF5C0 40%, #FAF7F2 100%)",
-    cardBg: "rgba(255,251,234,0.95)",
-    cardBorder: "rgba(246,211,78,0.35)",
-    blobColor: "rgba(246,211,78,0.25)",
+    primaryColor: "#5F7A1F",
+    secondaryColor: "#AFC8A0",
+    textColor: "#5F7A1F",
+    bgGradient: "linear-gradient(160deg, #FAF8F4 0%, #FFFFFF 100%)",
+    cardBg: "rgba(250,248,244,0.95)",
+    cardBorder: "rgba(95,122,31,0.15)",
+    blobColor: "rgba(175,200,160,0.2)",
     mood: "Energetic & Uplifting",
     bestFor: ["Morning boost", "Post-workout", "Study sessions"],
     bottle: "/lemon-bottle-removebg-preview.png",
@@ -32,13 +32,13 @@ const flavours = [
       "Velvet-smooth peach meets the gentle warmth of natural tea. Juicy Peach wraps you in a golden afternoon glow — sweet without being cloying, refreshing without being sharp.",
     notes: ["Ripe peach sweetness", "Floral tea character", "Smooth, lingering finish"],
     emoji: "🍑",
-    primaryColor: "#F7A76C",
-    secondaryColor: "#E8855A",
-    textColor: "#4A1800",
-    bgGradient: "linear-gradient(160deg, #FFF5EE 0%, #FFE8D4 40%, #FAF7F2 100%)",
-    cardBg: "rgba(255,245,238,0.95)",
-    cardBorder: "rgba(247,167,108,0.35)",
-    blobColor: "rgba(247,167,108,0.25)",
+    primaryColor: "#F6D9A8",
+    secondaryColor: "#B23A2E",
+    textColor: "#5F7A1F",
+    bgGradient: "linear-gradient(160deg, #FAF8F4 0%, #FFFFFF 100%)",
+    cardBg: "rgba(250,248,244,0.95)",
+    cardBorder: "rgba(246,217,168,0.25)",
+    blobColor: "rgba(246,217,168,0.3)",
     mood: "Calm & Indulgent",
     bestFor: ["Afternoon treat", "Relaxation", "Social moments"],
     bottle: "/peach-bottle-removebg-preview.png",
@@ -107,7 +107,7 @@ export default function FlavourSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <span className="block text-[#A9C3A2] text-xs tracking-[0.45em] uppercase font-medium mb-4">
+          <span className="block text-[#AFC8A0] text-xs tracking-[0.45em] uppercase font-bold mb-4">
             The Collection
           </span>
           <h2
@@ -116,7 +116,7 @@ export default function FlavourSection() {
           >
             Two flavours.{" "}
             <span className="italic" style={{
-              background: "linear-gradient(135deg, #0E5A43, #A9C3A2)",
+              backgroundImage: "linear-gradient(135deg, #5F7A1F, #AFC8A0)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -134,8 +134,8 @@ export default function FlavourSection() {
                 className="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
                 style={{
                   background: activeId === f.id ? f.primaryColor : "rgba(255,255,255,0.6)",
-                  color: activeId === f.id ? f.textColor : "#0E5A43",
-                  border: `2px solid ${activeId === f.id ? f.primaryColor : "rgba(14,90,67,0.15)"}`,
+                  color: activeId === f.id ? (f.id === 'peach' ? '#5F7A1F' : '#FAF8F4') : "#5F7A1F",
+                  border: `2px solid ${activeId === f.id ? f.primaryColor : "rgba(95,122,31,0.1)"}`,
                   boxShadow: activeId === f.id ? `0 8px 24px ${f.primaryColor}50` : "none",
                 }}
                 whileHover={{ scale: 1.05 }}
@@ -164,7 +164,7 @@ export default function FlavourSection() {
                 <motion.div
                   className="absolute rounded-full"
                   style={{
-                    width: 280, height: 280,
+                    width: 350, height: 350,
                     background: `radial-gradient(circle, ${active.blobColor} 0%, transparent 70%)`,
                   }}
                   animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
@@ -173,7 +173,7 @@ export default function FlavourSection() {
                 <motion.div
                   className="absolute rounded-full border-2 border-dashed"
                   style={{
-                    width: 260, height: 260,
+                    width: 320, height: 320,
                     borderColor: active.primaryColor + "40",
                   }}
                   animate={{ rotate: 360 }}
@@ -182,7 +182,7 @@ export default function FlavourSection() {
                 <motion.div
                   className="absolute rounded-full border"
                   style={{
-                    width: 220, height: 220,
+                    width: 280, height: 280,
                     borderColor: active.primaryColor + "25",
                   }}
                   animate={{ rotate: -360 }}
@@ -202,7 +202,7 @@ export default function FlavourSection() {
                     src={active.bottle}
                     alt={active.name}
                     style={{
-                      width: 180,
+                      width: 240,
                       height: "auto",
                       filter: `drop-shadow(0 24px 48px ${active.primaryColor}60) drop-shadow(0 8px 16px rgba(0,0,0,0.15))`,
                     }}
@@ -257,13 +257,13 @@ export default function FlavourSection() {
                 {active.name}
               </h3>
 
-              <p className="text-[#0E5A43]/70 leading-relaxed mb-8 text-sm md:text-base">
+              <p className="text-[#5F7A1F]/70 leading-relaxed mb-8 text-sm md:text-base">
                 {active.description}
               </p>
 
               {/* Tasting notes */}
               <div className="mb-8">
-                <p className="text-[10px] tracking-[0.4em] uppercase text-[#0E5A43]/35 mb-4">
+                <p className="text-[10px] tracking-[0.4em] uppercase text-[#5F7A1F]/40 mb-4">
                   Tasting Notes
                 </p>
                 <div className="space-y-3">
@@ -279,7 +279,7 @@ export default function FlavourSection() {
                         className="w-8 h-[2px] rounded-full flex-shrink-0"
                         style={{ background: `linear-gradient(90deg, ${active.primaryColor}, transparent)` }}
                       />
-                      <span className="text-sm text-[#0E5A43]/70">{note}</span>
+                      <span className="text-sm text-[#5F7A1F]/70">{note}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -287,7 +287,7 @@ export default function FlavourSection() {
 
               {/* Best for */}
               <div>
-                <p className="text-[10px] tracking-[0.4em] uppercase text-[#0E5A43]/35 mb-3">
+                <p className="text-[10px] tracking-[0.4em] uppercase text-[#5F7A1F]/40 mb-3">
                   Perfect for
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -296,10 +296,13 @@ export default function FlavourSection() {
                       key={use}
                       className="px-4 py-2 rounded-full text-xs font-medium"
                       style={{
-                        background: active.primaryColor + "18",
+                        background: active.primaryColor + "12",
                         color: active.textColor,
-                        border: `1px solid ${active.primaryColor}35`,
+                        border: `1px solid ${active.primaryColor}25`,
+                        backdropFilter: "blur(4px)",
+                        WebkitBackdropFilter: "blur(4px)",
                       }}
+                      whileHover={{ scale: 1.05, background: active.primaryColor + "20" }}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.3 + i * 0.08 }}
