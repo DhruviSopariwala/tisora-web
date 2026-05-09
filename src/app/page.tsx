@@ -25,17 +25,17 @@ export default function Home() {
         <main>
           <HeroSection />
           <MarqueeBar />
-          <WaveDivider fromColor="#FAF7F2" toColor="#F0EBE0" />
+          <WaveDivider fromColor="var(--color-ivory)" toColor="#F0EBE0" />
           <AboutSection />
-          <WaveDivider fromColor="#FAF7F2" toColor="#F0EBE0" flip />
+          <WaveDivider fromColor="var(--color-ivory)" toColor="#F0EBE0" flip />
           <IngredientsSection />
           <WaveDivider fromColor="#F0EBE0" toColor="#FFFBEA" />
           <FlavourSection />
-          <WaveDivider fromColor="#FAF7F2" toColor="#FAF7F2" flip />
+          <WaveDivider fromColor="var(--color-ivory)" toColor="var(--color-ivory)" flip />
           <WhySection />
-          <WaveDivider fromColor="#FAF7F2" toColor="#F0EBE0" />
+          <WaveDivider fromColor="var(--color-ivory)" toColor="#F0EBE0" />
           <SocialSection />
-          <WaveDivider fromColor="#FAF7F2" toColor="#F5EFE4" flip />
+          <WaveDivider fromColor="var(--color-ivory)" toColor="var(--color-cream-beige)" flip />
           <ContactSection />
         </main>
         <Footer />

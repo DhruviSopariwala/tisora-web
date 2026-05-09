@@ -13,7 +13,7 @@ const ingredients = [
     description:
       "Essential minerals that keep your body in balance. Our electrolyte blend supports hydration at a cellular level, helping you stay energised and refreshed throughout the day.",
     benefits: ["Cellular hydration", "Energy support", "Muscle recovery", "Mental clarity"],
-    color: "#0E5A43",
+    color: "var(--color-forest-green)",
     bgColor: "rgba(14,90,67,0.06)",
     gradient: "linear-gradient(135deg, rgba(14,90,67,0.08), rgba(169,195,162,0.08))",
   },
@@ -25,7 +25,7 @@ const ingredients = [
     description:
       "Khandsari is a minimally processed, natural cane sugar that retains trace minerals and a subtle molasses character. A cleaner sweetness — the way nature intended.",
     benefits: ["Minimal processing", "Natural minerals", "Gentle sweetness", "No bleaching"],
-    color: "#B68B5E",
+    color: "var(--color-brown-sugar)",
     bgColor: "rgba(182,139,94,0.06)",
     gradient: "linear-gradient(135deg, rgba(182,139,94,0.08), rgba(246,211,78,0.08))",
   },
@@ -37,7 +37,7 @@ const ingredients = [
     description:
       "Real tea, not flavouring. Our natural tea extracts bring authentic depth, antioxidants, and that unmistakable freshness that only comes from genuine tea leaves.",
     benefits: ["Rich antioxidants", "Authentic flavour", "Natural caffeine", "Botanical depth"],
-    color: "#1D6B4F",
+    color: "var(--color-botanical-green)",
     bgColor: "rgba(29,107,79,0.06)",
     gradient: "linear-gradient(135deg, rgba(29,107,79,0.08), rgba(169,195,162,0.12))",
   },
@@ -123,7 +123,7 @@ function IngredientCard({
         </h3>
 
         {/* Description */}
-        <p className="text-[#0E5A43]/65 text-sm leading-relaxed mb-6">
+        <p className="text-forest-green/65 text-sm leading-relaxed mb-6">
           {ingredient.description}
         </p>
 
@@ -132,7 +132,7 @@ function IngredientCard({
           {ingredient.benefits.map((b, i) => (
             <div key={i} className="flex items-center gap-2">
               <span className="text-[10px]" style={{ color: ingredient.color }}>✦</span>
-              <span className="text-xs text-[#0E5A43]/65">{b}</span>
+              <span className="text-xs text-forest-green/65">{b}</span>
             </div>
           ))}
         </div>
@@ -151,14 +151,14 @@ export default function IngredientsSection() {
       ref={ref}
       className="relative overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, #F0EBE0 0%, #FAF7F2 100%)",
+        background: "linear-gradient(180deg, #F0EBE0 0%, var(--color-ivory) 100%)",
         padding: "96px 0",
       }}
     >
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.04] blur-3xl"
-          style={{ background: "#0E5A43" }}
+          style={{ background: "var(--color-forest-green)" }}
         />
       </div>
 
@@ -171,16 +171,16 @@ export default function IngredientsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <span className="block text-[#A9C3A2] text-xs tracking-[0.45em] uppercase font-medium mb-4">
+          <span className="block text-sage-green text-xs tracking-[0.45em] uppercase font-medium mb-4">
             What's Inside
           </span>
           <h2
-            className="font-playfair font-bold text-[#0E5A43] leading-tight mb-5"
+            className="font-playfair font-bold text-forest-green leading-tight mb-5"
             style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
           >
             Ingredients that <span className="italic">matter.</span>
           </h2>
-          <p className="text-[#0E5A43]/55 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
+          <p className="text-forest-green/55 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
             Every ingredient in HYTEA is chosen with intention. No fillers,
             no shortcuts — just what your body actually needs.
           </p>
@@ -195,7 +195,7 @@ export default function IngredientsSection() {
 
         {/* Footer note */}
         <motion.p
-          className="text-center text-[#0E5A43]/35 text-xs tracking-[0.3em] uppercase mt-10"
+          className="text-center text-forest-green/35 text-xs tracking-[0.3em] uppercase mt-10"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.7 }}

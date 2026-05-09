@@ -16,10 +16,10 @@ const sizes = {
 };
 
 export default function Logo({
-  color = "#0E5A43",
+  color = "var(--color-forest-green)",
   size = "md",
   showTagline = false,
-  taglineColor = "#A9C3A2",
+  taglineColor = "var(--color-sage-green)",
   className = "",
 }: LogoProps) {
   const s = sizes[size];

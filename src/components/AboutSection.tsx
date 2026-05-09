@@ -47,17 +47,17 @@ export default function AboutSection() {
       id="about"
       ref={ref}
       className="relative overflow-hidden"
-      style={{ background: "#FAF7F2", padding: "96px 0 80px" }}
+      style={{ background: "var(--color-ivory)", padding: "96px 0 80px" }}
     >
       {/* Background blobs with parallax */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
           className="absolute -top-24 -right-24 w-80 h-80 rounded-full opacity-8 blur-3xl"
-          style={{ background: "radial-gradient(circle, #0E5A43, transparent)", y: blobY }}
+          style={{ background: "radial-gradient(circle, var(--color-forest-green), transparent)", y: blobY }}
         />
         <motion.div
           className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full opacity-6 blur-3xl"
-          style={{ background: "radial-gradient(circle, #A9C3A2, transparent)", y: blobY }}
+          style={{ background: "radial-gradient(circle, var(--color-sage-green), transparent)", y: blobY }}
         />
         <motion.svg
           className="absolute top-8 left-8 w-48 h-48 opacity-[0.04]"
@@ -65,7 +65,7 @@ export default function AboutSection() {
           fill="none"
           style={{ y: leafY }}
         >
-          <path d="M100 10 C150 10,190 50,190 100 C190 150,150 190,100 190 C50 190,10 150,10 100 C10 50,50 10,100 10Z" fill="#0E5A43" />
+          <path d="M100 10 C150 10,190 50,190 100 C190 150,150 190,100 190 C50 190,10 150,10 100 C10 50,50 10,100 10Z" fill="var(--color-forest-green)" />
         </motion.svg>
       </div>
 
@@ -80,20 +80,20 @@ export default function AboutSection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <span className="block text-[#A9C3A2] text-xs tracking-[0.45em] uppercase font-medium mb-4">
+            <span className="block text-sage-green text-xs tracking-[0.45em] uppercase font-medium mb-4">
               Our Story
             </span>
             <h2
-              className="font-playfair font-bold text-[#0E5A43] leading-[1.15] mb-3"
+              className="font-playfair font-bold text-forest-green leading-[1.15] mb-3"
               style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
             >
               Born from a<br />
-              <span className="italic text-[#1D6B4F]">better thirst.</span>
+              <span className="italic text-botanical-green">better thirst.</span>
             </h2>
-            <p className="text-[#B68B5E] text-xs tracking-[0.35em] uppercase font-semibold mb-6">
+            <p className="text-brown-sugar text-xs tracking-[0.35em] uppercase font-semibold mb-6">
               Your Daily Reset Drink
             </p>
-            <div className="space-y-4 text-[#1D6B4F]/75 leading-relaxed mb-8">
+            <div className="space-y-4 text-botanical-green/75 leading-relaxed mb-8">
               <p style={{ fontSize: "1.05rem" }}>
                 TISORA is a daily lifestyle iced tea designed for health-conscious
                 youth, office goers, and active individuals.
@@ -123,7 +123,7 @@ export default function AboutSection() {
                   className="px-4 py-1.5 rounded-full text-xs font-medium tracking-wide"
                   style={{
                     border: "1px solid rgba(14,90,67,0.18)",
-                    color: "#0E5A43",
+                    color: "var(--color-forest-green)",
                     background: "rgba(14,90,67,0.05)",
                   }}
                   initial={{ opacity: 0, scale: 0.8, y: 8 }}
@@ -151,7 +151,7 @@ export default function AboutSection() {
               onMouseLeave={handleCardMouseLeave}
               className="relative rounded-3xl overflow-hidden cursor-default"
               style={{
-                background: "linear-gradient(135deg, #0E5A43 0%, #1D6B4F 100%)",
+                background: "linear-gradient(135deg, var(--color-forest-green) 0%, var(--color-botanical-green) 100%)",
                 padding: "40px",
                 transformStyle: "preserve-3d",
                 willChange: "transform",
@@ -177,9 +177,9 @@ export default function AboutSection() {
               />
 
               <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-10"
-                style={{ background: "radial-gradient(circle, #A9C3A2, transparent)", transform: "translate(30%,-30%)" }} />
+                style={{ background: "radial-gradient(circle, var(--color-sage-green), transparent)", transform: "translate(30%,-30%)" }} />
               <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full opacity-10"
-                style={{ background: "radial-gradient(circle, #F6D34E, transparent)", transform: "translate(-30%,30%)" }} />
+                style={{ background: "radial-gradient(circle, var(--color-citrus-yellow), transparent)", transform: "translate(-30%,30%)" }} />
 
               <div className="relative z-10">
                 <motion.div
@@ -189,7 +189,7 @@ export default function AboutSection() {
                 >
                   🍵
                 </motion.div>
-                <h3 className="font-playfair text-2xl font-bold text-[#FAF7F2] mb-4">
+                <h3 className="font-playfair text-2xl font-bold text-ivory mb-4">
                   The TISORA Promise
                 </h3>
                 <ul className="space-y-3">
@@ -207,13 +207,13 @@ export default function AboutSection() {
                       transition={{ delay: 0.6 + i * 0.12, type: "spring", stiffness: 120 }}
                     >
                       <motion.span
-                        className="text-[#F6D34E] mt-0.5 flex-shrink-0 text-sm"
+                        className="text-citrus-yellow mt-0.5 flex-shrink-0 text-sm"
                         animate={{ opacity: [0.6, 1, 0.6] }}
                         transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
                       >
                         ✦
                       </motion.span>
-                      <span className="text-[#A9C3A2] text-sm leading-relaxed">{item}</span>
+                      <span className="text-sage-green text-sm leading-relaxed">{item}</span>
                     </motion.li>
                   ))}
                 </ul>
@@ -239,7 +239,7 @@ export default function AboutSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.6 + i * 0.1 }}
             >
-              <div className="text-[#0E5A43]/70 text-sm font-medium tracking-wide">{s.label}</div>
+              <div className="text-forest-green/70 text-sm font-medium tracking-wide">{s.label}</div>
             </motion.div>
           ))}
         </motion.div>

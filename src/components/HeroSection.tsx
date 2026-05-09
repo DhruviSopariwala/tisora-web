@@ -233,7 +233,7 @@ export default function HeroSection() {
       ref={containerRef}
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #0E5A43 0%, #1D6B4F 35%, #0a3d2e 65%, #0E5A43 100%)" }}
+      style={{ background: "linear-gradient(160deg, var(--color-forest-green) 0%, var(--color-botanical-green) 35%, #0a3d2e 65%, var(--color-forest-green) 100%)" }}
     >
       {/* Animated gradient mesh — shifts like liquid */}
       <motion.div
@@ -251,11 +251,11 @@ export default function HeroSection() {
       {/* Parallax background orbs */}
       <motion.div className="absolute inset-0 pointer-events-none" style={{ y: bgY }}>
         <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full opacity-20 blur-3xl"
-          style={{ background: "radial-gradient(circle, #A9C3A2, transparent)" }} />
+          style={{ background: "radial-gradient(circle, var(--color-sage-green), transparent)" }} />
         <div className="absolute bottom-1/3 right-1/4 w-64 h-64 rounded-full opacity-15 blur-3xl"
-          style={{ background: "radial-gradient(circle, #F6D34E, transparent)" }} />
+          style={{ background: "radial-gradient(circle, var(--color-citrus-yellow), transparent)" }} />
         <div className="absolute top-1/2 right-1/3 w-56 h-56 rounded-full opacity-10 blur-3xl"
-          style={{ background: "radial-gradient(circle, #F7A76C, transparent)" }} />
+          style={{ background: "radial-gradient(circle, var(--color-peach-orange), transparent)" }} />
       </motion.div>
 
       {/* Floating leaves */}
@@ -282,16 +282,16 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           <motion.div
-            className="h-px bg-[#A9C3A2]/50"
+            className="h-px bg-sage-green/50"
             initial={{ width: 0 }}
             animate={{ width: 32 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           />
-          <span className="text-[#A9C3A2] text-xs tracking-[0.45em] uppercase font-light">
+          <span className="text-sage-green text-xs tracking-[0.45em] uppercase font-light">
             Launching Soon
           </span>
           <motion.div
-            className="h-px bg-[#A9C3A2]/50"
+            className="h-px bg-sage-green/50"
             initial={{ width: 0 }}
             animate={{ width: 32 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -300,7 +300,7 @@ export default function HeroSection() {
 
         {/* Headline — word by word reveal */}
         <h1
-          className="font-playfair font-bold text-[#FAF7F2] leading-[1.1] mb-4 flex flex-wrap justify-center gap-x-4"
+          className="font-playfair font-bold text-ivory leading-[1.1] mb-4 flex flex-wrap justify-center gap-x-4"
           style={{ fontSize: "clamp(2.8rem, 8vw, 5.5rem)" }}
         >
           <AnimatedWord word="Hydration," delay={0.5} />
@@ -309,7 +309,7 @@ export default function HeroSection() {
             delay={0.8}
             className="italic"
             style={{
-              background: "linear-gradient(135deg, #A9C3A2, #F5EFE4)",
+              background: "linear-gradient(135deg, var(--color-sage-green), var(--color-cream-beige))",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -319,7 +319,7 @@ export default function HeroSection() {
 
         {/* Tagline */}
         <motion.p
-          className="text-[#F6D34E] text-sm tracking-[0.3em] uppercase font-semibold mb-6"
+          className="text-citrus-yellow text-sm tracking-[0.3em] uppercase font-semibold mb-6"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.1 }}
@@ -329,7 +329,7 @@ export default function HeroSection() {
 
         {/* Subheadline */}
         <motion.p
-          className="text-[#A9C3A2] font-light leading-relaxed mb-12 max-w-xl"
+          className="text-sage-green font-light leading-relaxed mb-12 max-w-xl"
           style={{ fontSize: "clamp(1rem, 2.5vw, 1.2rem)" }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -349,7 +349,7 @@ export default function HeroSection() {
           >
             <ProductBottle flavor="lemon" />
             <motion.span
-              className="text-[#A9C3A2] text-xs tracking-[0.35em] uppercase font-medium"
+              className="text-sage-green text-xs tracking-[0.35em] uppercase font-medium"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.1 }}
@@ -365,14 +365,14 @@ export default function HeroSection() {
             transition={{ delay: 1.9 }}
           >
             <motion.div
-              className="w-px bg-[#A9C3A2]"
+              className="w-px bg-sage-green"
               initial={{ height: 0 }}
               animate={{ height: 48 }}
               transition={{ duration: 0.5, delay: 2 }}
             />
-            <span className="text-[#A9C3A2] text-xs">×</span>
+            <span className="text-sage-green text-xs">×</span>
             <motion.div
-              className="w-px bg-[#A9C3A2]"
+              className="w-px bg-sage-green"
               initial={{ height: 0 }}
               animate={{ height: 48 }}
               transition={{ duration: 0.5, delay: 2 }}
@@ -387,7 +387,7 @@ export default function HeroSection() {
           >
             <ProductBottle flavor="peach" />
             <motion.span
-              className="text-[#F7A76C] text-xs tracking-[0.35em] uppercase font-medium"
+              className="text-peach-orange text-xs tracking-[0.35em] uppercase font-medium"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.2 }}
@@ -407,7 +407,7 @@ export default function HeroSection() {
           <MagneticButton>
             <motion.button
               onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="px-8 py-4 rounded-full font-semibold text-sm tracking-wide bg-[#FAF7F2] text-[#0E5A43] shadow-lg hover:bg-white transition-colors duration-300"
+              className="px-8 py-4 rounded-full font-semibold text-sm tracking-wide bg-ivory text-forest-green shadow-lg hover:bg-white transition-colors duration-300"
               whileTap={{ scale: 0.97 }}
             >
               Coming Soon — Get Notified
@@ -419,7 +419,7 @@ export default function HeroSection() {
               href="https://instagram.com/tisora_hytea"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full font-medium text-sm tracking-wide border border-[#FAF7F2]/40 text-[#FAF7F2] hover:bg-[#FAF7F2]/10 transition-colors duration-300 flex items-center gap-2"
+              className="px-8 py-4 rounded-full font-medium text-sm tracking-wide border border-ivory/40 text-ivory hover:bg-ivory/10 transition-colors duration-300 flex items-center gap-2"
               whileTap={{ scale: 0.97 }}
             >
               <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -438,9 +438,9 @@ export default function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 2.5 }}
       >
-        <span className="text-[#A9C3A2]/50 text-[10px] tracking-[0.4em] uppercase">Scroll</span>
+        <span className="text-sage-green/50 text-[10px] tracking-[0.4em] uppercase">Scroll</span>
         <motion.div
-          className="w-px h-10 bg-gradient-to-b from-[#A9C3A2]/50 to-transparent"
+          className="w-px h-10 bg-gradient-to-b from-sage-green/50 to-transparent"
           animate={{ scaleY: [0, 1, 0] }}
           style={{ originY: 0 }}
           transition={{ duration: 1.6, repeat: Infinity }}

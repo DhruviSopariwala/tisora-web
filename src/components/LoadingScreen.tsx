@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Logo from "./Logo";
 
 export default function LoadingScreen() {
   const [phase, setPhase] = useState<"loading" | "wiping" | "done">("loading");
@@ -14,166 +13,180 @@ export default function LoadingScreen() {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          // Small pause at 100%, then start wipe
-          setTimeout(() => setPhase("wiping"), 400);
+          setTimeout(() => setPhase("wiping"), 800);
           return 100;
         }
-        return prev + 2.5;
+        return prev + 1.8;
       });
-    }, 30);
+    }, 40);
     return () => clearInterval(interval);
   }, []);
 
-  // After wipe completes, unmount everything
   useEffect(() => {
     if (phase === "wiping") {
       setTimeout(() => setPhase("done"), 900);
     }
   }, [phase]);
 
+  const letters = "TISORA".split("");
+
+  // Generate random particles for antigravity effect
+  const particles = useMemo(() => 
+    Array.from({ length: 20 }).map((_, i) => ({
+      id: i,
+      size: (i % 5) + 2,
+      x: (i * 17) % 100,
+      y: (i * 23) % 100,
+      duration: (i % 5) * 3 + 10,
+      delay: (i % 10),
+    })), []);
+
   if (phase === "done") return null;
 
   return (
     <>
-      {/* ── Loading screen ── */}
       <AnimatePresence>
         {phase === "loading" && (
           <motion.div
             key="loader"
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #0E5A43 0%, #1D6B4F 50%, #0a3d2e 100%)" }}
-            exit={{ opacity: 0, scale: 1.04 }}
-            transition={{ duration: 0.35, ease: "easeIn" }}
+            className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden"
+            style={{ 
+              zIndex: 99999,
+              background: "radial-gradient(circle at center, #134e3a 0%, #0a2a21 100%)" 
+            }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
           >
-            {/* Concentric rings */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              {[0, 1, 2, 3, 4].map((i) => (
+            {/* Antigravity Particles */}
+            <div className="absolute inset-0 pointer-events-none">
+              {particles.map((p) => (
                 <motion.div
-                  key={i}
-                  className="absolute rounded-full"
+                  key={p.id}
+                  className="absolute rounded-full bg-sage-green/10"
                   style={{
-                    width: 120 + i * 100,
-                    height: 120 + i * 100,
-                    border: "1px solid rgba(169,195,162,0.12)",
+                    width: p.size,
+                    height: p.size,
+                    left: `${p.x}%`,
+                    top: `${p.y}%`,
+                    filter: "blur(1px)",
                   }}
-                  animate={{ scale: [1, 1.08, 1], opacity: [0.2, 0.5, 0.2] }}
-                  transition={{ duration: 3 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
+                  animate={{
+                    y: [-20, -150],
+                    opacity: [0, 0.3, 0],
+                    x: [0, (p.id % 5) * 12 - 30],
+                  }}
+                  transition={{
+                    duration: p.duration,
+                    repeat: Infinity,
+                    delay: p.delay,
+                    ease: "linear",
+                  }}
                 />
               ))}
             </div>
 
-            {/* Floating leaves */}
-            {[0, 1, 2, 3, 4, 5].map((i) => (
-              <motion.div
-                key={i}
-                className="absolute text-xl select-none pointer-events-none"
-                style={{ left: `${15 + i * 14}%`, top: `${20 + (i % 3) * 20}%` }}
-                animate={{ y: [0, -25, 0], rotate: [0, 15, -10, 0], opacity: [0.08, 0.22, 0.08] }}
-                transition={{ duration: 4 + i * 0.6, repeat: Infinity, delay: i * 0.5 }}
-              >
-                🍃
-              </motion.div>
-            ))}
+            {/* Glowing Aura */}
+            <motion.div 
+              className="absolute w-[400px] h-[400px] rounded-full bg-sage-green/5 blur-[120px]"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.2, 0.5, 0.2],
+              }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            />
 
-            {/* Logo block */}
-            <motion.div
-              className="relative z-10 flex flex-col items-center"
-              initial={{ opacity: 0, scale: 0.75, y: 32 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {/* "Introducing" label */}
+            {/* Main Content */}
+            <div className="relative z-10 flex flex-col items-center">
               <motion.span
-                className="text-[#A9C3A2] text-xs tracking-[0.5em] uppercase font-light mb-4 block"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2.5, repeat: Infinity }}
+                className="text-sage-green/40 text-[9px] tracking-[0.8em] uppercase font-light mb-16 block"
+                initial={{ opacity: 1, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.5 }}
               >
-                Introducing
+                The Future of Hydration
               </motion.span>
 
-              {/* TISORA logo */}
-              <Logo size="xl" color="#FAF7F2" />
+              {/* Antigravity Wordmark */}
+              <div className="flex gap-2 md:gap-5 mb-12">
+                {letters.map((char, i) => (
+                  <motion.span
+                    key={i}
+                    className="font-extrabold inline-block select-none text-white"
+                    style={{ 
+                      fontSize: "clamp(3rem, 12vw, 6rem)",
+                      fontFamily: "'Montserrat', 'Arial Black', sans-serif",
+                      textShadow: "0 20px 50px rgba(0,0,0,0.5)",
+                      lineHeight: 1
+                    }}
+                    initial={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+                    animate={{ 
+                      y: [0, -15, 0], 
+                    }}
+                    transition={{
+                      y: { 
+                        duration: 3 + (i % 2), 
+                        repeat: Infinity, 
+                        ease: "easeInOut",
+                        delay: i * 0.2 
+                      }
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </div>
 
-              {/* HYTEA line */}
+              {/* Subtitle */}
               <motion.div
-                className="mt-3 flex items-center gap-3"
-                initial={{ opacity: 0 }}
+                className="flex items-center gap-6"
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
+                transition={{ delay: 1.5 }}
               >
-                <motion.div
-                  className="h-px bg-[#A9C3A2]/50"
-                  initial={{ width: 0 }}
-                  animate={{ width: 48 }}
-                  transition={{ delay: 0.9, duration: 0.5 }}
-                />
-                <span className="text-[#A9C3A2] text-xs tracking-[0.5em] uppercase">HYTEA</span>
-                <motion.div
-                  className="h-px bg-[#A9C3A2]/50"
-                  initial={{ width: 0 }}
-                  animate={{ width: 48 }}
-                  transition={{ delay: 0.9, duration: 0.5 }}
-                />
+                <div className="h-px bg-sage-green/20 w-16" />
+                <span className="text-citrus-yellow text-[10px] tracking-[0.5em] uppercase font-semibold">
+                  TISORA HYTEA
+                </span>
+                <div className="h-px bg-sage-green/20 w-16" />
               </motion.div>
 
-              {/* Tagline */}
-              <motion.p
-                className="text-[#F6D34E] text-[11px] tracking-[0.3em] uppercase font-semibold mt-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2 }}
-              >
-                Your Daily Reset Drink
-              </motion.p>
-
-              {/* Progress bar */}
-              <motion.div
-                className="mt-10 w-52"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.9 }}
-              >
-                <div className="h-[2px] bg-white/10 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full transition-all duration-100"
-                    style={{
+              {/* Progress System */}
+              <div className="mt-24 w-72">
+                <div className="h-px w-full relative overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
+                  <motion.div
+                    className="absolute inset-y-0 left-0"
+                    style={{ 
                       width: `${progress}%`,
-                      background: "linear-gradient(90deg, #A9C3A2, #F6D34E)",
+                      background: "linear-gradient(to right, transparent, var(--color-sage-green, #A9C3A2), transparent)"
                     }}
                   />
+                  {/* Glowing head */}
+                  <motion.div
+                    className="absolute h-full w-20 bg-sage-green/30 blur-md"
+                    style={{ left: `${progress - 10}%` }}
+                  />
                 </div>
-                <p className="text-[#A9C3A2]/50 text-[10px] mt-2 text-center tracking-widest">
-                  {progress < 100 ? "Loading..." : "Welcome"}
-                </p>
-              </motion.div>
-            </motion.div>
+                <div className="flex justify-between mt-3">
+                  <span className="text-sage-green/30 text-[8px] uppercase tracking-[0.4em]">Optimizing Molecules</span>
+                  <span className="text-ivory/40 text-[9px] font-mono tracking-tighter">{Math.round(progress)}%</span>
+                </div>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ── Cinematic wipe panels ── */}
+      {/* Cinematic Wipe */}
       <AnimatePresence>
         {phase === "wiping" && (
-          <>
-            <motion.div
-              key="wipe-left"
-              className="fixed inset-y-0 left-0 z-[10000]"
-              style={{ width: "50%", background: "linear-gradient(to right, #0a3d2e, #0E5A43)" }}
-              initial={{ x: 0 }}
-              animate={{ x: "-100%" }}
-              exit={{}}
-              transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
-            />
-            <motion.div
-              key="wipe-right"
-              className="fixed inset-y-0 right-0 z-[10000]"
-              style={{ width: "50%", background: "linear-gradient(to left, #0a3d2e, #1D6B4F)" }}
-              initial={{ x: 0 }}
-              animate={{ x: "100%" }}
-              exit={{}}
-              transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
-            />
-          </>
+          <motion.div
+            key="wipe"
+            className="fixed inset-0 pointer-events-none"
+            style={{ zIndex: 100000, background: "#0a2a21" }}
+            initial={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
+            animate={{ clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" }}
+            transition={{ duration: 1.2, ease: [0.8, 0, 0.1, 1] }}
+          />
         )}
       </AnimatePresence>
     </>

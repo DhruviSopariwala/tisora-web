@@ -13,10 +13,10 @@ const flavours = [
       "A burst of sun-ripened citrus meets fresh mint and earthy sage, balanced with the clean depth of natural tea. Lemon Mint Sage is your morning energy, your afternoon reset — all in one refreshing bottle.",
     notes: ["Bright citrus top notes", "Fresh mint mid-palate", "Crisp, herbal finish"],
     emoji: "🍋",
-    primaryColor: "#F6D34E",
-    secondaryColor: "#B68B5E",
+    primaryColor: "var(--color-citrus-yellow)",
+    secondaryColor: "var(--color-brown-sugar)",
     textColor: "#4A2E00",
-    bgGradient: "linear-gradient(160deg, #FFFBEA 0%, #FFF5C0 40%, #FAF7F2 100%)",
+    bgGradient: "linear-gradient(160deg, #FFFBEA 0%, #FFF5C0 40%, var(--color-ivory) 100%)",
     cardBg: "rgba(255,251,234,0.95)",
     cardBorder: "rgba(246,211,78,0.35)",
     blobColor: "rgba(246,211,78,0.25)",
@@ -32,10 +32,10 @@ const flavours = [
       "Velvet-smooth peach meets the gentle warmth of natural tea. Juicy Peach wraps you in a golden afternoon glow — sweet without being cloying, refreshing without being sharp.",
     notes: ["Ripe peach sweetness", "Floral tea character", "Smooth, lingering finish"],
     emoji: "🍑",
-    primaryColor: "#F7A76C",
+    primaryColor: "var(--color-peach-orange)",
     secondaryColor: "#E8855A",
     textColor: "#4A1800",
-    bgGradient: "linear-gradient(160deg, #FFF5EE 0%, #FFE8D4 40%, #FAF7F2 100%)",
+    bgGradient: "linear-gradient(160deg, #FFF5EE 0%, #FFE8D4 40%, var(--color-ivory) 100%)",
     cardBg: "rgba(255,245,238,0.95)",
     cardBorder: "rgba(247,167,108,0.35)",
     blobColor: "rgba(247,167,108,0.25)",
@@ -107,16 +107,16 @@ export default function FlavourSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <span className="block text-[#A9C3A2] text-xs tracking-[0.45em] uppercase font-medium mb-4">
+          <span className="block text-sage-green text-xs tracking-[0.45em] uppercase font-medium mb-4">
             The Collection
           </span>
           <h2
-            className="font-playfair font-bold text-[#0E5A43] leading-tight mb-5"
+            className="font-playfair font-bold text-forest-green leading-tight mb-5"
             style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
           >
             Two flavours.{" "}
             <span className="italic" style={{
-              background: "linear-gradient(135deg, #0E5A43, #A9C3A2)",
+              background: "linear-gradient(135deg, var(--color-forest-green), var(--color-sage-green))",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -134,7 +134,7 @@ export default function FlavourSection() {
                 className="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
                 style={{
                   background: activeId === f.id ? f.primaryColor : "rgba(255,255,255,0.6)",
-                  color: activeId === f.id ? f.textColor : "#0E5A43",
+                  color: activeId === f.id ? f.textColor : "var(--color-forest-green)",
                   border: `2px solid ${activeId === f.id ? f.primaryColor : "rgba(14,90,67,0.15)"}`,
                   boxShadow: activeId === f.id ? `0 8px 24px ${f.primaryColor}50` : "none",
                 }}
@@ -257,13 +257,13 @@ export default function FlavourSection() {
                 {active.name}
               </h3>
 
-              <p className="text-[#0E5A43]/70 leading-relaxed mb-8 text-sm md:text-base">
+              <p className="text-forest-green/70 leading-relaxed mb-8 text-sm md:text-base">
                 {active.description}
               </p>
 
               {/* Tasting notes */}
               <div className="mb-8">
-                <p className="text-[10px] tracking-[0.4em] uppercase text-[#0E5A43]/35 mb-4">
+                <p className="text-[10px] tracking-[0.4em] uppercase text-forest-green/35 mb-4">
                   Tasting Notes
                 </p>
                 <div className="space-y-3">
@@ -279,7 +279,7 @@ export default function FlavourSection() {
                         className="w-8 h-[2px] rounded-full flex-shrink-0"
                         style={{ background: `linear-gradient(90deg, ${active.primaryColor}, transparent)` }}
                       />
-                      <span className="text-sm text-[#0E5A43]/70">{note}</span>
+                      <span className="text-sm text-forest-green/70">{note}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -287,7 +287,7 @@ export default function FlavourSection() {
 
               {/* Best for */}
               <div>
-                <p className="text-[10px] tracking-[0.4em] uppercase text-[#0E5A43]/35 mb-3">
+                <p className="text-[10px] tracking-[0.4em] uppercase text-forest-green/35 mb-3">
                   Perfect for
                 </p>
                 <div className="flex flex-wrap gap-2">

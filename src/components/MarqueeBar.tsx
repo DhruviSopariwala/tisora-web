@@ -43,7 +43,7 @@ function MarqueeRow({ items, direction = "left", speed = 30 }: {
             key={i}
             className="flex-shrink-0 flex items-center gap-2"
             style={{
-              color: direction === "left" ? "#A9C3A2" : "#F6D34E",
+              color: direction === "left" ? "var(--color-sage-green)" : "var(--color-citrus-yellow)",
               fontSize: "0.7rem",
               letterSpacing: "0.25em",
               textTransform: "uppercase",
@@ -64,7 +64,7 @@ export default function MarqueeBar() {
     <div
       className="relative overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #0a3d2e 0%, #0E5A43 50%, #1D6B4F 100%)",
+        background: "linear-gradient(135deg, #0a3d2e 0%, var(--color-forest-green) 50%, var(--color-botanical-green) 100%)",
         borderTop: "1px solid rgba(169,195,162,0.12)",
         borderBottom: "1px solid rgba(169,195,162,0.12)",
       }}

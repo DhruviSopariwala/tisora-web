@@ -11,7 +11,7 @@ export default function ScrollProgressBar() {
       style={{
         scaleX: scrollYProgress,
         transformOrigin: "left center",
-        background: "linear-gradient(90deg, #0E5A43, #A9C3A2, #F6D34E, #F7A76C)",
+        background: "linear-gradient(90deg, var(--color-forest-green), var(--color-sage-green), var(--color-citrus-yellow), var(--color-peach-orange))",
       }}
     />
   );
