@@ -3,7 +3,7 @@
 
 @theme {
   --font-playfair: 'Playfair Display', Georgia, serif;
-  --font-inter: 'Montserrat', system-ui, sans-serif;
+  --font-montserrat: 'Montserrat', system-ui, sans-serif;
   --font-sans: 'Montserrat', system-ui, sans-serif;
 
   --color-forest-green: #0E5A43;
@@ -21,6 +21,10 @@
   .font-playfair {
     font-family: 'Playfair Display', Georgia, serif;
   }
+  .font-montserrat {
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+  /* Keep font-inter as alias for backward compat */
   .font-inter {
     font-family: 'Montserrat', system-ui, sans-serif;
   }
@@ -56,6 +60,33 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* All headings use Playfair Display */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* ─── 3D Transform Utilities ──────────────────────────────── */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* ─── Smooth transitions for 3D effects ──────────────────── */
+section {
+  transition: transform 0.3s ease-out;
 }
 
 /* ─── Custom scrollbar ──────────────────────────────────── */
@@ -97,6 +128,40 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+}
+
+@keyframes rotate3D {
+  from {
+    transform: rotateY(0deg) rotateX(0deg);
+  }
+  to {
+    transform: rotateY(360deg) rotateX(360deg);
+  }
+}
+
 /* ─── Utility animation classes ─────────────────────────── */
 .animate-float      { animation: float 6s ease-in-out infinite; }
 .animate-float-slow { animation: float 9s ease-in-out infinite; }
+.animate-fadeInUp   { animation: fadeInUp 0.8s ease-out forwards; }
+.animate-scaleIn    { animation: scaleIn 0.6s ease-out forwards; }
+.animate-rotate3D   { animation: rotate3D 20s linear infinite; }

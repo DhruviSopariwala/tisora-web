@@ -13,26 +13,33 @@ export default function LoadingScreen() {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => setIsLoading(false), 400);
+          setTimeout(() => setIsLoading(false), 500);
           return 100;
         }
         return prev + 2;
       });
     }, 30);
+
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isLoading && (
         <motion.div
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
-          style={{ background: "linear-gradient(135deg, #0E5A43 0%, #1D6B4F 50%, #0a3d2e 100%)" }}
+          key="loading-screen"
+          className="fixed inset-0 flex flex-col items-center justify-center"
+          style={{
+            background: "linear-gradient(135deg, #0E5A43 0%, #1D6B4F 50%, #0a3d2e 100%)",
+            zIndex: 99999,
+          }}
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
           {/* Animated background circles */}
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {[...Array(6)].map((_, i) => (
               <motion.div
                 key={i}
@@ -54,54 +61,61 @@ export default function LoadingScreen() {
           {/* Floating leaves */}
           {[...Array(8)].map((_, i) => (
             <motion.div
-              key={i}
-              className="absolute text-2xl"
+              key={`leaf-${i}`}
+              className="absolute text-2xl pointer-events-none select-none"
               style={{
                 left: `${10 + i * 12}%`,
                 top: `${20 + (i % 3) * 20}%`,
-                opacity: 0.2,
               }}
               animate={{
                 y: [0, -20, 0],
                 rotate: [0, 10, -10, 0],
                 opacity: [0.1, 0.3, 0.1],
               }}
-              transition={{ duration: 4 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
+              transition={{
+                duration: 4 + i * 0.5,
+                repeat: Infinity,
+                delay: i * 0.4,
+              }}
             >
               🍃
             </motion.div>
           ))}
 
-          {/* Logo */}
-          <motion.div
-            className="relative z-10 text-center flex flex-col items-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
+          {/* Main content — no initial opacity:0 on the wrapper so background is never blank */}
+          <div className="relative z-10 text-center flex flex-col items-center">
+
+            {/* "Introducing" label */}
             <motion.div
               className="mb-4"
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <span className="text-[#A9C3A2] text-sm tracking-[0.4em] uppercase font-light">
+              <motion.span
+                className="text-[#A9C3A2] text-sm tracking-[0.4em] uppercase font-light"
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.7 }}
+              >
                 Introducing
-              </span>
+              </motion.span>
             </motion.div>
 
+            {/* TISORA Logo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             >
               <Logo size="xl" color="#FAF7F2" />
             </motion.div>
 
+            {/* HYTEA divider */}
             <motion.div
               className="mt-4 flex items-center justify-center gap-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
             >
               <div className="h-px w-12 bg-[#A9C3A2] opacity-60" />
               <span className="text-[#A9C3A2] text-xs tracking-[0.5em] uppercase">
@@ -110,11 +124,12 @@ export default function LoadingScreen() {
               <div className="h-px w-12 bg-[#A9C3A2] opacity-60" />
             </motion.div>
 
+            {/* Tagline */}
             <motion.p
               className="text-[#F6D34E] text-[11px] tracking-[0.3em] uppercase font-semibold mt-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.1 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
             >
               Your Daily Reset Drink
             </motion.p>
@@ -124,20 +139,26 @@ export default function LoadingScreen() {
               className="mt-12 w-48 mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
             >
-              <div className="h-px bg-white/20 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-[#A9C3A2] to-[#F5EFE4] rounded-full"
-                  style={{ width: `${progress}%` }}
-                  transition={{ duration: 0.1 }}
+              <div
+                className="h-px rounded-full overflow-hidden"
+                style={{ background: "rgba(255,255,255,0.2)" }}
+              >
+                <div
+                  className="h-full rounded-full"
+                  style={{
+                    width: `${progress}%`,
+                    background: "linear-gradient(to right, #A9C3A2, #F5EFE4)",
+                    transition: "width 0.1s linear",
+                  }}
                 />
               </div>
               <p className="text-[#A9C3A2] text-xs mt-3 tracking-widest opacity-60">
                 {progress < 100 ? "Loading..." : "Welcome"}
               </p>
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

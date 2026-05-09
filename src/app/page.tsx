@@ -1,4 +1,4 @@
-import LoadingScreen from "@/components/LoadingScreen";
+import LoadingScreenWrapper from "@/components/LoadingScreenWrapper";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeBar from "@/components/MarqueeBar";
@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <LoadingScreen />
+      <LoadingScreenWrapper />
       <Navbar />
       <main>
         <HeroSection />
