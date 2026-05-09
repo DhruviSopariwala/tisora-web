@@ -3,6 +3,17 @@
 import { motion } from "framer-motion";
 import Logo from "./Logo";
 
+// Static leaf particle data — no Math.random() to avoid hydration mismatch
+const LEAVES = [
+  { emoji: "🍃", x: "10%",  size: 16, duration: 18, delay: 0,   drift: 30  },
+  { emoji: "🌿", x: "25%",  size: 12, duration: 22, delay: 3,   drift: -20 },
+  { emoji: "🍃", x: "40%",  size: 14, duration: 16, delay: 6,   drift: 25  },
+  { emoji: "🌱", x: "55%",  size: 10, duration: 20, delay: 1,   drift: -30 },
+  { emoji: "🍃", x: "70%",  size: 18, duration: 24, delay: 8,   drift: 20  },
+  { emoji: "🌿", x: "82%",  size: 12, duration: 19, delay: 4,   drift: -15 },
+  { emoji: "🍃", x: "92%",  size: 15, duration: 21, delay: 10,  drift: 28  },
+];
+
 const navLinks = [
   { label: "About",       href: "#about" },
   { label: "Ingredients", href: "#ingredients" },
@@ -25,6 +36,31 @@ export default function Footer() {
     >
       {/* Top divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-[#A9C3A2]/25 to-transparent" />
+
+      {/* Drifting leaf particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {LEAVES.map((leaf, i) => (
+          <motion.div
+            key={i}
+            className="absolute bottom-0 select-none"
+            style={{ left: leaf.x, fontSize: leaf.size }}
+            animate={{
+              y: [0, -300],
+              x: [0, leaf.drift, 0],
+              rotate: [0, 180, 360],
+              opacity: [0, 0.4, 0.4, 0],
+            }}
+            transition={{
+              duration: leaf.duration,
+              delay: leaf.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {leaf.emoji}
+          </motion.div>
+        ))}
+      </div>
 
       {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

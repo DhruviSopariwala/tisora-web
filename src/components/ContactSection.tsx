@@ -52,11 +52,34 @@ export default function ContactSection() {
       id="contact"
       ref={ref}
       className="relative overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #FAF7F2 0%, #F5EFE4 100%)", padding: "96px 0" }}
+      style={{ padding: "96px 0" }}
     >
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 right-0 w-72 h-72 rounded-full blur-3xl opacity-8" style={{ background: "#0E5A43" }} />
-        <div className="absolute bottom-1/4 left-0 w-64 h-64 rounded-full blur-3xl opacity-6" style={{ background: "#A9C3A2" }} />
+      {/* Rich background */}
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(160deg, #F5EFE4 0%, #FAF7F2 50%, #F0EBE0 100%)" }}
+      />
+
+      {/* Animated orbs — contained behind content */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full blur-3xl opacity-25"
+          style={{ background: "radial-gradient(circle, #A9C3A2, transparent)" }}
+          animate={{ scale: [1, 1.3, 1], x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full blur-3xl opacity-15"
+          style={{ background: "radial-gradient(circle, #F6D34E, transparent)" }}
+          animate={{ scale: [1, 1.2, 1], x: [0, -20, 0], y: [0, 20, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        />
+        <motion.div
+          className="absolute top-1/2 right-1/3 w-48 h-48 rounded-full blur-3xl opacity-10"
+          style={{ background: "radial-gradient(circle, #F7A76C, transparent)" }}
+          animate={{ scale: [1, 1.4, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+        />
       </div>
 
       <div className="section-container relative z-10">
@@ -75,9 +98,17 @@ export default function ContactSection() {
             className="font-playfair font-bold text-[#0E5A43] leading-tight mb-5"
             style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
           >
-            Be first to <span className="italic">taste it.</span>
+            Be first to{" "}
+            <span className="italic" style={{
+              background: "linear-gradient(135deg, #0E5A43, #A9C3A2)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>
+              taste it.
+            </span>
           </h2>
-          <p className="text-[#0E5A43]/55 max-w-lg mx-auto text-sm md:text-base">
+          <p className="text-[#0E5A43]/60 max-w-lg mx-auto text-sm md:text-base">
             HYTEA is launching soon. Sign up for launch updates, exclusive
             early access, and the freshest news from TISORA.
           </p>
@@ -97,8 +128,9 @@ export default function ContactSection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.15 }}
           >
-            <div className="absolute -top-8 -right-8 w-36 h-36 rounded-full opacity-10" style={{ background: "#A9C3A2" }} />
-            <div className="absolute -bottom-8 -left-8 w-28 h-28 rounded-full opacity-10" style={{ background: "#F6D34E" }} />
+            {/* Decorative blobs — inside overflow-hidden so they stay clipped */}
+            <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-10 translate-x-1/3 -translate-y-1/3" style={{ background: "#A9C3A2" }} />
+            <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full opacity-10 -translate-x-1/3 translate-y-1/3" style={{ background: "#F6D34E" }} />
 
             <div className="relative z-10">
               <div className="text-4xl mb-5">🚀</div>
@@ -177,8 +209,10 @@ export default function ContactSection() {
           <motion.div
             className="rounded-3xl"
             style={{
-              background: "rgba(255,255,255,0.82)",
+              background: "rgba(255,255,255,0.75)",
               border: "1px solid rgba(14,90,67,0.1)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
               padding: "40px 36px",
             }}
             initial={{ opacity: 0, x: 32 }}
@@ -212,6 +246,7 @@ export default function ContactSection() {
                         placeholder="Your name"
                         required
                         style={inputBase}
+                        className="placeholder-[#0E5A43]/30"
                         onFocus={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.4)")}
                         onBlur={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.15)")}
                       />
@@ -225,6 +260,7 @@ export default function ContactSection() {
                         placeholder="your@email.com"
                         required
                         style={inputBase}
+                        className="placeholder-[#0E5A43]/30"
                         onFocus={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.4)")}
                         onBlur={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.15)")}
                       />
@@ -238,6 +274,7 @@ export default function ContactSection() {
                       placeholder="Tell us what's on your mind..."
                       rows={4}
                       style={{ ...inputBase, resize: "none" }}
+                      className="placeholder-[#0E5A43]/30"
                       onFocus={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.4)")}
                       onBlur={(e) => (e.target.style.borderColor = "rgba(14,90,67,0.15)")}
                     />

@@ -48,6 +48,12 @@
 }
 
 /* ─── Base ─────────────────────────────────────────────── */
+/*
+ * IMPORTANT: Do NOT add perspective, transform-style:preserve-3d,
+ * or will-change:transform to html or body. These create a CSS
+ * transform context that breaks position:fixed on all descendants
+ * (including the loading screen overlay).
+ */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -68,6 +74,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── 3D Transform Utilities ──────────────────────────────── */
+/* Use these classes on specific elements, NOT on html/body/section globally */
 .preserve-3d {
   transform-style: preserve-3d;
 }
@@ -82,6 +89,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .backface-hidden {
   backface-visibility: hidden;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-card-inner {
+  transform: translateZ(20px);
 }
 
 /* ─── Smooth transitions for 3D effects ──────────────────── */
