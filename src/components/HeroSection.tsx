@@ -167,13 +167,13 @@ export default function HeroSection() {
       </motion.div>
 
       {/* ── Layer 2: Floating leaves — mid parallax ── */}
-      <motion.div className="absolute inset-0 z-[1] pointer-events-none" style={{ y: layer2Y }}>
+      <motion.div className="absolute inset-0 z-1 pointer-events-none" style={{ y: layer2Y }}>
         <FloatingLeaves />
       </motion.div>
 
       {/* ── Layer 3: Foreground accent dots — fastest parallax ── */}
       <motion.div
-        className="absolute inset-0 z-[2] pointer-events-none"
+        className="absolute inset-0 z-2 pointer-events-none"
         style={{ y: layer3Y, x: bgSpringX }}
       >
         {[
