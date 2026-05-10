@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TISORA 🍃 — Hydration, Reimagined.
 
-## Getting Started
+**TISORA** is the official web application and digital storefront for TISORA's premium hydration beverages. Built with a focus on luxury, minimalism, and wellness, this platform serves as the primary touchpoint for customers to explore our natural iced teas infused with electrolytes.
 
-First, run the development server:
+## ✨ The Digital Experience
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+We engineered the TISORA website to reflect the feeling of our product—refreshing, calming, and premium:
+- **Cinematic Loading Sequences**: A highly polished, custom initial load sequence that sets the tone for the brand.
+- **Organic Botanical Aesthetics**: Hand-crafted SVG-based matte eucalyptus leaves that gently drift across the screen with natural sway and cinematic depth-of-field.
+- **Minimalist Luxury Design**: A curated pastel and cream color palette (`#FAF8F4`, soft sage greens) combined with sophisticated, elegant typography.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project is built using modern web technologies to ensure a fast, fluid, and responsive experience:
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **UI Library**: [React 19](https://react.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/) & [GSAP](https://gsap.com/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Getting Started
 
-## Learn More
+To run the project locally:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/DhruviSopariwala/tisora-web.git
+   cd tisora-web
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+4. **View the application:**
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📂 Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/` - Next.js App Router pages, global layouts, and global styles.
+- `src/components/` - Reusable React components (`HeroSection`, `LoadingScreen`, `FloatingLeaves`, `Logo`).
+- `public/` - Static assets, product images, and icons.
+
+## 🤝 Contributing
+
+Contributions are welcome. When making changes to the UI or animations, please ensure you maintain the **premium minimal aesthetic** of the brand. Ensure your code passes all linting rules (`npm run lint`) before submitting a pull request.
