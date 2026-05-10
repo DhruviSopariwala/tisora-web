@@ -41,7 +41,7 @@ export default function LoadingScreen() {
         {phase === "loading" && (
           <motion.div
             key="loader"
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
+            className="fixed inset-0 z-9999 flex flex-col items-center justify-center overflow-hidden"
             style={{ background: "#FAF8F4" }}
             exit={{ opacity: 0, scale: 1.02 }}
             transition={{ duration: 0.4, ease: "easeIn" }}
@@ -133,14 +133,14 @@ export default function LoadingScreen() {
                 transition={{ delay: 0.6 }}
               >
                 <motion.div
-                  className="h-[1px] bg-[#5F7A1F]/20"
+                  className="h-px bg-[#5F7A1F]/20"
                   initial={{ width: 0 }}
                   animate={{ width: 60 }}
                   transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
                 />
                 <span className="text-[#5F7A1F] text-xs tracking-[0.6em] uppercase font-bold">HYTEA</span>
                 <motion.div
-                  className="h-[1px] bg-[#5F7A1F]/20"
+                  className="h-px bg-[#5F7A1F]/20"
                   initial={{ width: 0 }}
                   animate={{ width: 60 }}
                   transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
@@ -149,7 +149,7 @@ export default function LoadingScreen() {
 
               {/* Tagline */}
               <motion.p
-                className="text-[#B23A2E] text-[10px] tracking-[0.4em] uppercase font-bold mt-4"
+                className="text-brown-sugar text-[10px] tracking-[0.4em] uppercase font-bold mt-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.1 }}
@@ -164,7 +164,7 @@ export default function LoadingScreen() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9 }}
               >
-                <div className="w-full h-[1px] bg-[#5F7A1F]/10 relative overflow-hidden">
+                <div className="w-full h-px bg-[#5F7A1F]/10 relative overflow-hidden">
                   <motion.div
                     className="absolute inset-y-0 left-0 bg-[#5F7A1F]"
                     style={{ width: `${progress}%` }}
@@ -191,7 +191,7 @@ export default function LoadingScreen() {
           <>
             <motion.div
               key="wipe-left"
-              className="fixed inset-y-0 left-0 z-[10000]"
+              className="fixed inset-y-0 left-0 z-10000"
               style={{ width: "50%", background: "#5F7A1F" }}
               initial={{ x: 0 }}
               animate={{ x: "-100%" }}
@@ -199,7 +199,7 @@ export default function LoadingScreen() {
             />
             <motion.div
               key="wipe-right"
-              className="fixed inset-y-0 right-0 z-[10000]"
+              className="fixed inset-y-0 right-0 z-10000"
               style={{ width: "50%", background: "#5F7A1F" }}
               initial={{ x: 0 }}
               animate={{ x: "100%" }}

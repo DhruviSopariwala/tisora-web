@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import FloatingLeaves from "./FloatingLeaves";
 
 function ProductBottle({ flavor }: { flavor: "lemon" | "peach" }) {
   const isLemon = flavor === "lemon";
@@ -37,11 +38,12 @@ export default function HeroSection() {
       style={{ background: "#FAF8F4" }}
     >
       {/* ── Fixed Background Elements ── */}
+      <FloatingLeaves />
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute -left-[10%] top-[10%] w-[300px] md:w-[500px] h-auto opacity-[0.04] grayscale brightness-[0.9]">
+        <div className="absolute left-[-10%] top-[10%] w-[300px] md:w-[500px] h-auto opacity-[0.04] grayscale brightness-[0.9]">
           <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-contain invert" alt="" />
         </div>
-        <div className="absolute -right-[10%] bottom-[5%] w-[400px] md:w-[600px] h-auto opacity-[0.03] grayscale brightness-[0.9]">
+        <div className="absolute right-[-10%] bottom-[5%] w-[400px] md:w-[600px] h-auto opacity-[0.03] grayscale brightness-[0.9]">
           <img src="https://images.unsplash.com/photo-1501004318641-729e8e22bd5e?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-contain invert" alt="" />
         </div>
       </div>
