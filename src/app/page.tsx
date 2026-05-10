@@ -1,16 +1,19 @@
+import dynamic from "next/dynamic";
 import LoadingScreenWrapper from "@/components/LoadingScreenWrapper";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeBar from "@/components/MarqueeBar";
-import CinematicSequenceWrapper from "@/components/CinematicSequenceWrapper";
-import AboutSection from "@/components/AboutSection";
-import IngredientsSection from "@/components/IngredientsSection";
-import FlavourSection from "@/components/FlavourSection";
-import WhySection from "@/components/WhySection";
-import SocialSection from "@/components/SocialSection";
-import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
 import CursorTrail from "@/components/CursorTrail";
+
+// Below-fold sections — lazy loaded so initial bundle is smaller
+const CinematicSequenceWrapper = dynamic(() => import("@/components/CinematicSequenceWrapper"));
+const AboutSection              = dynamic(() => import("@/components/AboutSection"));
+const IngredientsSection        = dynamic(() => import("@/components/IngredientsSection"));
+const FlavourSection            = dynamic(() => import("@/components/FlavourSection"));
+const WhySection                = dynamic(() => import("@/components/WhySection"));
+const SocialSection             = dynamic(() => import("@/components/SocialSection"));
+const ContactSection            = dynamic(() => import("@/components/ContactSection"));
+const Footer                    = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (

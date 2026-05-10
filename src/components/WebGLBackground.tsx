@@ -30,49 +30,85 @@ export default function WebGLBackground() {
       uniform vec2  u_resolution;
       uniform vec2  u_mouse;
 
+      // Soft radial orb with sharper falloff
       float orb(vec2 uv, vec2 center, float radius) {
         float d = length(uv - center);
         return 1.0 - smoothstep(0.0, radius, d);
+      }
+
+      // Simple hash for turbulence
+      float hash(vec2 p) {
+        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
       }
 
       void main() {
         vec2 uv = gl_FragCoord.xy / u_resolution;
         float aspect = u_resolution.x / u_resolution.y;
         vec2 suv = vec2(uv.x * aspect, uv.y);
-        float t = u_time * 0.25;
+        float t = u_time * 0.42; // faster — more alive
 
-        vec3 bg     = vec3(0.980, 0.973, 0.957);
-        vec3 sage   = vec3(0.686, 0.784, 0.627);
-        vec3 forest = vec3(0.373, 0.478, 0.122);
-        vec3 gold   = vec3(0.965, 0.851, 0.659);
-        vec3 mint   = vec3(0.867, 0.922, 0.816);
-        vec3 lemon  = vec3(0.965, 0.851, 0.300);
+        // ── Slightly darker background so colors pop ──────────────────────
+        vec3 bg     = vec3(0.945, 0.937, 0.922);
+        vec3 sage   = vec3(0.550, 0.730, 0.480);
+        vec3 forest = vec3(0.200, 0.400, 0.060);
+        vec3 gold   = vec3(0.980, 0.820, 0.350);
+        vec3 mint   = vec3(0.780, 0.930, 0.700);
+        vec3 lemon  = vec3(0.970, 0.870, 0.200);
 
-        vec2 p1 = vec2(0.15*aspect + 0.18*aspect*sin(t*0.7+0.0), 0.75+0.18*cos(t*0.5+1.0));
-        vec2 p2 = vec2(0.80*aspect + 0.20*aspect*sin(t*0.6+2.1), 0.80+0.15*cos(t*0.8+0.5));
-        vec2 p3 = vec2(0.25*aspect + 0.15*aspect*cos(t*0.9+1.5), 0.40+0.22*sin(t*0.6+3.0));
-        vec2 p4 = vec2(0.75*aspect + 0.18*aspect*cos(t*0.7+4.2), 0.25+0.20*sin(t*0.5+2.0));
-        vec2 p5 = vec2(0.10*aspect + 0.12*aspect*sin(t*1.1+0.8), 0.20+0.15*cos(t*0.7+1.2));
-        vec2 p6 = vec2(0.88*aspect + 0.10*aspect*sin(t*0.8+3.5), 0.50+0.25*cos(t*0.6+0.3));
+        // ── Smaller, tighter orbs with turbulence on paths ────────────────
+        // Turbulence: secondary sine layered on top of primary path
+        float tb = 0.06; // turbulence amplitude
 
-        float o1 = orb(suv, p1, 0.55*aspect);
-        float o2 = orb(suv, p2, 0.50*aspect);
-        float o3 = orb(suv, p3, 0.40*aspect);
-        float o4 = orb(suv, p4, 0.45*aspect);
-        float o5 = orb(suv, p5, 0.38*aspect);
-        float o6 = orb(suv, p6, 0.42*aspect);
+        vec2 p1 = vec2(
+          0.12*aspect + 0.14*aspect*sin(t*0.7+0.0) + tb*aspect*sin(t*2.1+0.5),
+          0.78 + 0.16*cos(t*0.5+1.0) + tb*cos(t*1.8+0.3)
+        );
+        vec2 p2 = vec2(
+          0.82*aspect + 0.16*aspect*sin(t*0.6+2.1) + tb*aspect*sin(t*2.4+1.2),
+          0.82 + 0.13*cos(t*0.8+0.5) + tb*cos(t*2.0+0.8)
+        );
+        vec2 p3 = vec2(
+          0.28*aspect + 0.13*aspect*cos(t*0.9+1.5) + tb*aspect*cos(t*1.9+2.1),
+          0.42 + 0.20*sin(t*0.6+3.0) + tb*sin(t*2.3+1.5)
+        );
+        vec2 p4 = vec2(
+          0.72*aspect + 0.15*aspect*cos(t*0.7+4.2) + tb*aspect*cos(t*2.2+0.7),
+          0.22 + 0.18*sin(t*0.5+2.0) + tb*sin(t*1.7+2.4)
+        );
+        vec2 p5 = vec2(
+          0.08*aspect + 0.10*aspect*sin(t*1.1+0.8) + tb*aspect*sin(t*2.5+1.8),
+          0.18 + 0.14*cos(t*0.7+1.2) + tb*cos(t*2.1+0.6)
+        );
+        vec2 p6 = vec2(
+          0.90*aspect + 0.09*aspect*sin(t*0.8+3.5) + tb*aspect*sin(t*1.6+2.9),
+          0.52 + 0.22*cos(t*0.6+0.3) + tb*cos(t*2.3+1.1)
+        );
 
+        // Smaller radii — tighter, more defined color pools
+        float o1 = orb(suv, p1, 0.28*aspect);
+        float o2 = orb(suv, p2, 0.25*aspect);
+        float o3 = orb(suv, p3, 0.22*aspect);
+        float o4 = orb(suv, p4, 0.24*aspect);
+        float o5 = orb(suv, p5, 0.20*aspect);
+        float o6 = orb(suv, p6, 0.23*aspect);
+
+        // Mouse orb — larger and brighter for strong interaction feel
         vec2 mouseAspect = vec2(u_mouse.x * aspect, u_mouse.y);
-        float o7 = orb(suv, mouseAspect, 0.30*aspect);
+        float o7 = orb(suv, mouseAspect, 0.22*aspect);
 
+        // ── Composite — stronger blend factors ────────────────────────────
         vec3 color = bg;
-        color = mix(color, sage,   o1 * 0.55);
-        color = mix(color, gold,   o2 * 0.50);
-        color = mix(color, forest, o3 * 0.30);
-        color = mix(color, lemon,  o4 * 0.45);
-        color = mix(color, mint,   o5 * 0.50);
-        color = mix(color, sage,   o6 * 0.40);
-        color = mix(color, gold,   o7 * 0.35);
+        color = mix(color, sage,   o1 * 0.72);
+        color = mix(color, gold,   o2 * 0.68);
+        color = mix(color, forest, o3 * 0.55); // forest now visible
+        color = mix(color, lemon,  o4 * 0.62);
+        color = mix(color, mint,   o5 * 0.65);
+        color = mix(color, sage,   o6 * 0.58);
+        color = mix(color, gold,   o7 * 0.70); // strong mouse reaction
+
+        // ── Vignette — darken edges, focus center ─────────────────────────
+        float vignette = 1.0 - 0.35 * length(uv - vec2(0.5, 0.5));
+        color *= vignette;
 
         gl_FragColor = vec4(color, 1.0);
       }
@@ -94,10 +130,8 @@ export default function WebGLBackground() {
     const fs = compileShader(gl.FRAGMENT_SHADER, fsSource);
     if (!vs || !fs) return;
 
-    // Fix: null-check createProgram — can return null on context loss
     const prog = gl.createProgram();
     if (!prog) return;
-
     gl.attachShader(prog, vs);
     gl.attachShader(prog, fs);
     gl.linkProgram(prog);
@@ -122,7 +156,6 @@ export default function WebGLBackground() {
     const uRes   = gl.getUniformLocation(prog, "u_resolution");
     const uMouse = gl.getUniformLocation(prog, "u_mouse");
 
-    // Fix: consistent resize — always use parentElement, fall back to window
     const getSize = () => {
       const parent = canvas.parentElement;
       return {
@@ -139,7 +172,6 @@ export default function WebGLBackground() {
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
 
-    // ResizeObserver fires on mount — no need for extra setTimeout
     const observeTarget = canvas.parentElement ?? canvas;
     const ro = new ResizeObserver(resize);
     ro.observe(observeTarget);
@@ -152,7 +184,6 @@ export default function WebGLBackground() {
     };
     window.addEventListener("mousemove", onMove);
 
-    // Fix: handle WebGL context loss — stop RAF, prevent error spam
     let raf = 0;
     const onContextLost = (e: Event) => {
       e.preventDefault();
@@ -163,8 +194,8 @@ export default function WebGLBackground() {
     const start = performance.now();
     const render = () => {
       const t = (performance.now() - start) / 1000;
-      mx += (tx - mx) * 0.04;
-      my += (ty - my) * 0.04;
+      mx += (tx - mx) * 0.05;
+      my += (ty - my) * 0.05;
       gl.uniform1f(uTime, t);
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform2f(uMouse, mx, my);

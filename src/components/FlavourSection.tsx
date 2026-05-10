@@ -326,7 +326,7 @@ export default function FlavourSection() {
                 <motion.div
                   className="absolute rounded-full"
                   style={{
-                    width: 350, height: 350,
+                    width: "min(350px, 80vw)", height: "min(350px, 80vw)",
                     background: `radial-gradient(circle, ${active.blobColor} 0%, transparent 70%)`,
                   }}
                   animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
@@ -334,13 +334,13 @@ export default function FlavourSection() {
                 />
                 <motion.div
                   className="absolute rounded-full border-2 border-dashed"
-                  style={{ width: 320, height: 320, borderColor: active.primaryColor + "40" }}
+                  style={{ width: "min(320px, 75vw)", height: "min(320px, 75vw)", borderColor: active.primaryColor + "40" }}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 />
                 <motion.div
                   className="absolute rounded-full border"
-                  style={{ width: 280, height: 280, borderColor: active.primaryColor + "25" }}
+                  style={{ width: "min(280px, 65vw)", height: "min(280px, 65vw)", borderColor: active.primaryColor + "25" }}
                   animate={{ rotate: -360 }}
                   transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                 />

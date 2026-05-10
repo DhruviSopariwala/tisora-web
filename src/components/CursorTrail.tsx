@@ -27,6 +27,9 @@ export default function CursorTrail() {
   const lastSpawn = useRef(0);
 
   useEffect(() => {
+    // Skip on touch devices — no mousemove events, RAF loop would run empty
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");

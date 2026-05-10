@@ -123,7 +123,7 @@ export default function ContactSection() {
             className="relative rounded-3xl overflow-hidden"
             style={{
               background: "linear-gradient(135deg, #5F7A1F 0%, #7A9B28 100%)",
-              padding: "40px 36px",
+              padding: "clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)",
             }}
             initial={{ opacity: 0, x: -32 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -213,7 +213,7 @@ export default function ContactSection() {
               border: "1px solid rgba(95,122,31,0.1)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
-              padding: "40px 36px",
+              padding: "clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)",
             }}
             initial={{ opacity: 0, x: 32 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
