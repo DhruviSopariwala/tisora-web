@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useTilt } from "@/hooks/useTilt";
 
@@ -37,10 +37,11 @@ export default function AboutSection() {
     setGlare((g) => ({ ...g, opacity: 0 }));
   };
 
-  const setRefs = (el: HTMLDivElement | null) => {
-    (cardRef as React.RefObject<HTMLDivElement | null>).current = el;
-    (tiltRef as React.RefObject<HTMLDivElement | null>).current = el;
-  };
+  // Merge refs using callback ref pattern
+  const setRefs = useCallback((el: HTMLDivElement | null) => {
+    cardRef.current = el;
+    tiltRef(el);
+  }, [tiltRef]);
 
   return (
     <section
@@ -52,11 +53,11 @@ export default function AboutSection() {
       {/* Background blobs with parallax */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          className="absolute -top-24 -right-24 w-80 h-80 rounded-full opacity-8 blur-3xl"
+          className="absolute -top-24 -right-24 w-80 h-80 rounded-full opacity-[0.08] blur-3xl"
           style={{ background: "radial-gradient(circle, #5F7A1F, transparent)", y: blobY }}
         />
         <motion.div
-          className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full opacity-6 blur-3xl"
+          className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full opacity-[0.06] blur-3xl"
           style={{ background: "radial-gradient(circle, #AFC8A0, transparent)", y: blobY }}
         />
         <motion.svg

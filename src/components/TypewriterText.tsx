@@ -29,9 +29,12 @@ export default function TypewriterText({
 
   // Reset if text prop changes mid-animation
   useEffect(() => {
-    setDisplayed("");
-    setDone(false);
-    setStarted(false);
+    const t = setTimeout(() => {
+      setDisplayed("");
+      setDone(false);
+      setStarted(false);
+    }, 0);
+    return () => clearTimeout(t);
   }, [text]);
 
   // Start after delay
@@ -46,8 +49,9 @@ export default function TypewriterText({
     if (displayed.length >= text.length) {
       // Guard: only fire onDone once
       if (!done) {
-        setDone(true);
+        const t = setTimeout(() => setDone(true), 0);
         onDoneRef.current?.();
+        return () => clearTimeout(t);
       }
       return;
     }

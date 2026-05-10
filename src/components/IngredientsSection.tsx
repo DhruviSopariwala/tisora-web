@@ -174,7 +174,7 @@ export default function IngredientsSection() {
           transition={{ duration: 0.7 }}
         >
           <span className="block text-[#AFC8A0] text-xs tracking-[0.45em] uppercase font-bold mb-4">
-            What's Inside
+            What&apos;s Inside
           </span>
           <h2
             className="font-playfair font-bold text-[#5F7A1F] leading-tight mb-5"

@@ -89,7 +89,7 @@ export default function ParticleBurstButton({
 
       {/* Particle bursts — rendered outside button flow via absolute positioning */}
       <AnimatePresence>
-        {bursts.map((burst, bi) =>
+        {bursts.map((burst) =>
           burst.map((p) => {
             const rad = (p.angle * Math.PI) / 180;
             const tx = Math.cos(rad) * p.distance;

@@ -14,7 +14,17 @@ const EUCALYPTUS_PATHS = [
   "M50,95 C35,70 30,30 50,5 C70,30 65,70 50,95 Z"
 ];
 
-const DelicateLeaf = ({ className, style, width, height, pathIndex = 0, blur, opacity = 0.75 }: any) => {
+interface DelicateLeafProps {
+  className?: string;
+  style?: React.CSSProperties;
+  width?: number;
+  height?: number;
+  pathIndex?: number;
+  blur?: number;
+  opacity?: number;
+}
+
+const DelicateLeaf = ({ className, style, width, height, pathIndex = 0, blur, opacity = 0.75 }: DelicateLeafProps) => {
   return (
     <svg 
       viewBox="0 0 100 100" 

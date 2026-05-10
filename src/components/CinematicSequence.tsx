@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 const ingredients = [
@@ -14,26 +14,32 @@ const ingredients = [
 
 export default function CinematicSequence() {
   const ref = useRef<HTMLDivElement>(null);
-
-  // once: false — replays every time section enters viewport
   const isInView = useInView(ref, { once: false, margin: "-80px" });
+
+  // ssr:false wrapper means this always runs in browser — safe to read window
+  const [vw, setVw] = useState<number>(window.innerWidth);
+  useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const isMobile = vw < 640;
+  const desktopScale = Math.min(1, vw / 1000);
+  const bottleW = Math.min(160, Math.round(vw * 0.4));
 
   return (
     <section
       ref={ref}
-      className="relative w-full flex flex-col items-center justify-center overflow-hidden"
-      style={{
-        background: "#FAF8F4",
-        minHeight: "100vh",
-        padding: "60px 0",
-      }}
+      className="relative w-full flex flex-col items-center justify-center"
+      style={{ background: "#FAF8F4", padding: isMobile ? "48px 0 56px" : "60px 0" }}
     >
-      {/* Central glow — behind everything */}
+      {/* Central glow — purely decorative, pointer-events none, doesn't affect layout */}
       <motion.div
         className="absolute rounded-full pointer-events-none"
         style={{
-          width: 600,
-          height: 600,
+          width: isMobile ? 260 : 600,
+          height: isMobile ? 260 : 600,
           background: "radial-gradient(circle, rgba(175,200,160,0.28), transparent 70%)",
           top: "50%",
           left: "50%",
@@ -46,114 +52,192 @@ export default function CinematicSequence() {
         transition={{ duration: 1.6, ease: "easeOut" }}
       />
 
-      {/* ── Scene container ── */}
-      <div
-        className="relative flex items-center justify-center w-full"
-        style={{ height: 420 }}
-      >
+      {/* ─────────────────────────────────────────────────────────────
+          MOBILE  (<640px)
+          Pure flex-column flow — no absolute positioning at all.
+          Each element takes its natural height; nothing can overlap.
+      ───────────────────────────────────────────────────────────── */}
+      {isMobile ? (
+        <div className="relative z-10 flex flex-col items-center w-full px-6">
 
-        {/* Orbiting ingredients — z-index 1, BEHIND bottles */}
-        {ingredients.map((ing, i) => {
-          const rad = (ing.angle * Math.PI) / 180;
-          const tx = Math.cos(rad) * ing.radius;
-          const ty = Math.sin(rad) * ing.radius;
-          return (
+          {/* Lemon bottle + label — outer: entrance, inner: float loop */}
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          >
             <motion.div
-              key={ing.label}
-              className="absolute flex flex-col items-center gap-1 pointer-events-none select-none"
-              style={{ x: tx, y: ty, zIndex: 1 }}
-              initial={{ opacity: 0, scale: 0.2 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.2 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.7 + i * 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              className="flex flex-col items-center"
+              initial={{ y: 0 }}
+              animate={isInView ? { y: [0, -10, 0] } : { y: 0 }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.0 }}
             >
-              <motion.span
-                className="text-2xl"
-                animate={isInView ? { rotate: [0, 8, -8, 0], y: [0, -5, 0] } : {}}
-                transition={{
-                  duration: 3 + i * 0.4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1.2 + i * 0.15,
+              <img
+                src="/lemon-bottle-removebg-preview.png"
+                alt="Lemon Mint Sage"
+                style={{
+                  width: bottleW,
+                  height: "auto",
+                  display: "block",
+                  filter: "drop-shadow(0 16px 32px rgba(95,122,31,0.35))",
                 }}
-              >
-                {ing.emoji}
-              </motion.span>
-              <span
-                className="text-[8px] tracking-[0.25em] uppercase font-bold"
-                style={{ color: "rgba(95,122,31,0.5)" }}
-              >
-                {ing.label}
+              />
+              <span className="text-[10px] tracking-[0.35em] uppercase font-bold text-[#5F7A1F]/50 mt-2 block">
+                Lemon Mint Sage
               </span>
             </motion.div>
-          );
-        })}
+          </motion.div>
 
-        {/* Lemon bottle — z-index 2, IN FRONT of ingredients */}
-        <motion.div
-          className="absolute flex flex-col items-center"
-          style={{ zIndex: 2 }}
-          initial={{ x: 0, opacity: 0, scale: 0.4 }}
-          animate={isInView ? { x: -170, opacity: 1, scale: 1 } : { x: 0, opacity: 0, scale: 0.4 }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <motion.img
-            src="/lemon-bottle-removebg-preview.png"
-            alt="Lemon Mint Sage"
-            style={{
-              width: 220,
-              filter: "drop-shadow(0 24px 48px rgba(95,122,31,0.4))",
-            }}
-            animate={isInView ? { y: [0, -14, 0] } : {}}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.1 }}
-          />
-          <motion.span
-            className="text-[10px] tracking-[0.35em] uppercase font-bold text-[#5F7A1F]/50 mt-3"
+          {/* Ingredient pills — fixed height, no animation that shifts position */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-2 mt-6 mb-6"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 0.9 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
           >
-            Lemon Mint Sage
-          </motion.span>
-        </motion.div>
+            {ingredients.map((ing) => (
+              <span
+                key={ing.label}
+                className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold"
+                style={{
+                  background: "rgba(95,122,31,0.07)",
+                  border: "1px solid rgba(95,122,31,0.14)",
+                  color: "rgba(95,122,31,0.65)",
+                }}
+              >
+                {ing.emoji} {ing.label}
+              </span>
+            ))}
+          </motion.div>
 
-        {/* Peach bottle — z-index 2, IN FRONT of ingredients */}
-        <motion.div
-          className="absolute flex flex-col items-center"
-          style={{ zIndex: 2 }}
-          initial={{ x: 0, opacity: 0, scale: 0.4 }}
-          animate={isInView ? { x: 170, opacity: 1, scale: 1 } : { x: 0, opacity: 0, scale: 0.4 }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          {/* Peach bottle + label — outer: entrance, inner: float loop */}
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.div
+              className="flex flex-col items-center"
+              initial={{ y: 0 }}
+              animate={isInView ? { y: [0, -10, 0] } : { y: 0 }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.3 }}
+            >
+              <img
+                src="/peach-bottle-removebg-preview.png"
+                alt="Juicy Peach"
+                style={{
+                  width: bottleW,
+                  height: "auto",
+                  display: "block",
+                  filter: "drop-shadow(0 16px 32px rgba(246,217,168,0.5))",
+                }}
+              />
+              <span className="text-[10px] tracking-[0.35em] uppercase font-bold text-[#5F7A1F]/50 mt-2 block">
+                Juicy Peach
+              </span>
+            </motion.div>
+          </motion.div>
+        </div>
+
+      ) : (
+        /* ─────────────────────────────────────────────────────────────
+            DESKTOP / TABLET  (≥640px)
+            Absolute-positioned scene — unchanged from original.
+        ───────────────────────────────────────────────────────────── */
+        <div
+          className="relative flex items-center justify-center w-full overflow-hidden"
+          style={{ height: 420 }}
         >
-          <motion.img
-            src="/peach-bottle-removebg-preview.png"
-            alt="Juicy Peach"
-            style={{
-              width: 220,
-              filter: "drop-shadow(0 24px 48px rgba(246,217,168,0.55))",
-            }}
-            animate={isInView ? { y: [0, -14, 0] } : {}}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
-          />
-          <motion.span
-            className="text-[10px] tracking-[0.35em] uppercase font-bold text-[#5F7A1F]/50 mt-3"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 1.0 }}
+          {/* Orbiting ingredient labels */}
+          {ingredients.map((ing, i) => {
+            const rad = (ing.angle * Math.PI) / 180;
+            const r   = ing.radius * desktopScale;
+            const tx  = Math.cos(rad) * r;
+            const ty  = Math.sin(rad) * r;
+            return (
+              <motion.div
+                key={ing.label}
+                className="absolute flex flex-col items-center gap-1 pointer-events-none select-none"
+                style={{ x: tx, y: ty, zIndex: 1 }}
+                initial={{ opacity: 0, scale: 0.2 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.7 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <motion.span
+                  className="text-2xl"
+                  animate={isInView ? { rotate: [0, 8, -8, 0], y: [0, -5, 0] } : {}}
+                  transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: 1.2 + i * 0.15 }}
+                >
+                  {ing.emoji}
+                </motion.span>
+                <span
+                  className="text-[8px] tracking-[0.25em] uppercase font-bold"
+                  style={{ color: "rgba(95,122,31,0.5)" }}
+                >
+                  {ing.label}
+                </span>
+              </motion.div>
+            );
+          })}
+
+          {/* Lemon bottle */}
+          <motion.div
+            className="absolute flex flex-col items-center"
+            style={{ zIndex: 2 }}
+            initial={{ x: 0, opacity: 0, scale: 0.4 }}
+            animate={isInView ? { x: -170, opacity: 1, scale: 1 } : { x: 0, opacity: 0, scale: 0.4 }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            Juicy Peach
-          </motion.span>
-        </motion.div>
+            <motion.img
+              src="/lemon-bottle-removebg-preview.png"
+              alt="Lemon Mint Sage"
+              style={{ width: 220, filter: "drop-shadow(0 24px 48px rgba(95,122,31,0.4))" }}
+              animate={isInView ? { y: [0, -14, 0] } : {}}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.1 }}
+            />
+            <motion.span
+              className="text-[10px] tracking-[0.35em] uppercase font-bold text-[#5F7A1F]/50 mt-3"
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ delay: 0.9 }}
+            >
+              Lemon Mint Sage
+            </motion.span>
+          </motion.div>
 
-      </div>
+          {/* Peach bottle */}
+          <motion.div
+            className="absolute flex flex-col items-center"
+            style={{ zIndex: 2 }}
+            initial={{ x: 0, opacity: 0, scale: 0.4 }}
+            animate={isInView ? { x: 170, opacity: 1, scale: 1 } : { x: 0, opacity: 0, scale: 0.4 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.img
+              src="/peach-bottle-removebg-preview.png"
+              alt="Juicy Peach"
+              style={{ width: 220, filter: "drop-shadow(0 24px 48px rgba(246,217,168,0.55))" }}
+              animate={isInView ? { y: [0, -14, 0] } : {}}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
+            />
+            <motion.span
+              className="text-[10px] tracking-[0.35em] uppercase font-bold text-[#5F7A1F]/50 mt-3"
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ delay: 1.0 }}
+            >
+              Juicy Peach
+            </motion.span>
+          </motion.div>
+        </div>
+      )}
 
-      {/* Tagline — below the scene, never overlaps */}
+      {/* Tagline — always in normal flow below the scene */}
       <motion.div
-        className="flex flex-col items-center gap-3 mt-8 relative"
-        style={{ zIndex: 3 }}
+        className="flex flex-col items-center gap-3 px-6 z-10"
+        style={{ marginTop: isMobile ? 32 : 32 }}
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.8, delay: 1.3 }}

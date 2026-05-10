@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { useTilt } from "@/hooks/useTilt";
 
@@ -79,10 +79,10 @@ function SpotlightCard({ feature, index, isInView }: {
   };
 
   // Merge refs using callback ref pattern
-  const setRefs = (el: HTMLDivElement | null) => {
-    (cardRef as React.RefObject<HTMLDivElement | null>).current = el;
-    (tiltRef as React.RefObject<HTMLDivElement | null>).current = el;
-  };
+  const setRefs = useCallback((el: HTMLDivElement | null) => {
+    cardRef.current = el;
+    tiltRef(el);
+  }, [tiltRef]);
 
   return (
     <motion.div
@@ -175,13 +175,13 @@ export default function WhySection() {
 
       {/* Floating orbs */}
       <motion.div
-        className="absolute top-20 right-20 w-64 h-64 rounded-full blur-3xl opacity-8 pointer-events-none"
+        className="absolute top-20 right-20 w-64 h-64 rounded-full blur-3xl opacity-[0.08] pointer-events-none"
         style={{ background: "radial-gradient(circle, #AFC8A0, transparent)" }}
         animate={{ scale: [1, 1.2, 1], x: [0, 20, 0], y: [0, -20, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-20 left-20 w-48 h-48 rounded-full blur-3xl opacity-6 pointer-events-none"
+        className="absolute bottom-20 left-20 w-48 h-48 rounded-full blur-3xl opacity-[0.06] pointer-events-none"
         style={{ background: "radial-gradient(circle, #F6D9A8, transparent)" }}
         animate={{ scale: [1, 1.3, 1], x: [0, -15, 0], y: [0, 15, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
@@ -219,7 +219,7 @@ export default function WhySection() {
           </h2>
           <p className="text-[#5F7A1F]/55 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
             In a world of compromises, HYTEA stands for something different.
-            Here's what sets us apart.
+            Here&apos;s what sets us apart.
           </p>
         </motion.div>
 

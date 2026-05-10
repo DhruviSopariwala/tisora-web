@@ -139,7 +139,7 @@ export default function ContactSection() {
                 Launch Notification
               </h3>
               <p className="text-[#AFC8A0] text-sm leading-relaxed mb-8">
-                Be the first to know when HYTEA drops. We'll send you an
+                Be the first to know when HYTEA drops. We&apos;ll send you an
                 exclusive early access link the moment we launch.
               </p>
 
@@ -197,8 +197,8 @@ export default function ContactSection() {
                     transition={{ type: "spring", stiffness: 220 }}
                   >
                     <div className="text-5xl mb-4">🎉</div>
-                    <h4 className="font-playfair text-xl font-bold text-[#FAF8F4] mb-2">You're on the list!</h4>
-                    <p className="text-[#AFC8A0] text-sm">We'll reach out the moment HYTEA launches.</p>
+                    <h4 className="font-playfair text-xl font-bold text-[#FAF8F4] mb-2">You&apos;re on the list!</h4>
+                    <p className="text-[#AFC8A0] text-sm">We&apos;ll reach out the moment HYTEA launches.</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -224,7 +224,7 @@ export default function ContactSection() {
               Get in Touch
             </h3>
             <p className="text-[#5F7A1F]/55 text-sm leading-relaxed mb-8">
-              Questions, partnerships, press enquiries — we'd love to hear from you.
+              Questions, partnerships, press enquiries — we&apos;d love to hear from you.
             </p>
 
             <AnimatePresence mode="wait">
@@ -307,7 +307,7 @@ export default function ContactSection() {
                 >
                   <div className="text-5xl mb-4">✅</div>
                   <h4 className="font-playfair text-xl font-bold text-[#5F7A1F] mb-2">Message received!</h4>
-                  <p className="text-[#5F7A1F]/55 text-sm">We'll get back to you within 24 hours.</p>
+                  <p className="text-[#5F7A1F]/55 text-sm">We&apos;ll get back to you within 24 hours.</p>
                 </motion.div>
               )}
             </AnimatePresence>

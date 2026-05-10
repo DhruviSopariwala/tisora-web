@@ -41,8 +41,8 @@ export default function LoadingScreen() {
         {phase === "loading" && (
           <motion.div
             key="loader"
-            className="fixed inset-0 z-9999 flex flex-col items-center justify-center overflow-hidden"
-            style={{ background: "#FAF8F4" }}
+            className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden"
+            style={{ background: "#FAF8F4", zIndex: 99999 }}
             exit={{ opacity: 0, scale: 1.02 }}
             transition={{ duration: 0.4, ease: "easeIn" }}
           >
@@ -191,16 +191,16 @@ export default function LoadingScreen() {
           <>
             <motion.div
               key="wipe-left"
-              className="fixed inset-y-0 left-0 z-10000"
-              style={{ width: "50%", background: "#5F7A1F" }}
+              className="fixed inset-y-0 left-0"
+              style={{ width: "50%", background: "#5F7A1F", zIndex: 100000 }}
               initial={{ x: 0 }}
               animate={{ x: "-100%" }}
               transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             />
             <motion.div
               key="wipe-right"
-              className="fixed inset-y-0 right-0 z-10000"
-              style={{ width: "50%", background: "#5F7A1F" }}
+              className="fixed inset-y-0 right-0"
+              style={{ width: "50%", background: "#5F7A1F", zIndex: 100000 }}
               initial={{ x: 0 }}
               animate={{ x: "100%" }}
               transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
