@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import ParticleBurstButton from "./ParticleBurst";
 
 export default function ContactSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -168,12 +169,11 @@ export default function ContactSection() {
                       }}
                       className="placeholder-[#AFC8A0]/55"
                     />
-                    <motion.button
+                    <ParticleBurstButton
                       type="submit"
                       disabled={loading}
                       className="w-full py-4 rounded-xl bg-[#F6D9A8] text-[#5F7A1F] font-bold text-sm tracking-widest uppercase shadow-md disabled:opacity-60"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      style={{ cursor: loading ? "not-allowed" : "pointer" }}
                     >
                       {loading ? (
                         <span className="flex items-center justify-center gap-2">
@@ -185,7 +185,7 @@ export default function ContactSection() {
                           Signing up...
                         </span>
                       ) : "Notify Me at Launch →"}
-                    </motion.button>
+                    </ParticleBurstButton>
                     <p className="text-[#AFC8A0]/45 text-xs text-center">No spam. Unsubscribe anytime.</p>
                   </motion.form>
                 ) : (
@@ -279,13 +279,11 @@ export default function ContactSection() {
                       onBlur={(e) => (e.target.style.borderColor = "rgba(95,122,31,0.15)")}
                     />
                   </div>
-                  <motion.button
+                  <ParticleBurstButton
                     type="submit"
                     disabled={loading}
                     className="w-full py-4 rounded-xl text-[#FAF8F4] font-bold text-sm tracking-widest uppercase shadow-lg disabled:opacity-60"
-                    style={{ background: "linear-gradient(135deg, #5F7A1F, #7A9B28)" }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    style={{ background: "linear-gradient(135deg, #5F7A1F, #7A9B28)", cursor: loading ? "not-allowed" : "pointer" }}
                   >
                     {loading ? (
                       <span className="flex items-center justify-center gap-2">
@@ -297,7 +295,7 @@ export default function ContactSection() {
                         Sending...
                       </span>
                     ) : "Send Message →"}
-                  </motion.button>
+                  </ParticleBurstButton>
                 </motion.form>
               ) : (
                 <motion.div

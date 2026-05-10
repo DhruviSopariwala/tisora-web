@@ -182,13 +182,6 @@ export default function AboutSection() {
                 style={{ background: "radial-gradient(circle, #F6D9A8, transparent)", transform: "translate(-30%,30%)" }} />
 
               <div className="relative z-10">
-                <motion.div
-                  className="text-5xl mb-5 inline-block"
-                  animate={{ rotate: [0, -5, 5, 0], scale: [1, 1.05, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  🍵
-                </motion.div>
                 <h3 className="font-playfair text-3xl font-bold text-[#FAF8F4] mb-5">
                   The TISORA Promise
                 </h3>

@@ -181,3 +181,8 @@ section {
 .animate-fadeInUp   { animation: fadeInUp 0.8s ease-out forwards; }
 .animate-scaleIn    { animation: scaleIn 0.6s ease-out forwards; }
 .animate-rotate3D   { animation: rotate3D 20s linear infinite; }
+
+@keyframes tisora-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
